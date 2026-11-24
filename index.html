@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRE PROT TEST 2570</title>
+<meta name="description" content="ลองสนามจริง ก่อนสอบจริง · สนามสอบโรงเรียนพรตพิทยพยัต สำหรับนักเรียน ป.5–ป.6 และ ม.3">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#3a1d5c; --purple-2:#5b2d8e; --orange:#e87700; --gold:#f6a623; --gold-ink:#3a1d5c;
+    --bg:#f7f4ee; --surface:#ffffff; --surface-2:#f1ebf8; --ink:#231a2e; --muted:#6b6275; --line:#e4dcef;
+    --accent:#5b2d8e; --ok:#1d7a46; --ok-soft:#e3f4ea; --warn:#a35a00; --warn-soft:#fff1dc; --err:#b3261e; --err-soft:#fdecea;
+    --shadow:0 6px 24px rgba(58,29,92,.10);
+    --f-head:Anuphan,"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+    --f-body:Sarabun,"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141019; --surface:#1d1727; --surface-2:#2a2138; --ink:#eee8f6; --muted:#b4aac4; --line:#372c49;
+      --accent:#c3a6f2; --ok:#7fd3a4; --ok-soft:#15352a; --warn:#f2c46b; --warn-soft:#3a2b0e; --err:#f28a80; --err-soft:#3f1f24;
+      --shadow:0 6px 24px rgba(0,0,0,.35); color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141019; --surface:#1d1727; --surface-2:#2a2138; --ink:#eee8f6; --muted:#b4aac4; --line:#372c49;
+    --accent:#c3a6f2; --ok:#7fd3a4; --ok-soft:#15352a; --warn:#f2c46b; --warn-soft:#3a2b0e; --err:#f28a80; --err-soft:#3f1f24;
+    --shadow:0 6px 24px rgba(0,0,0,.35); color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--f-body);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden}
+  h1,h2,h3,.btn,nav a,.pill,.num{font-family:var(--f-head)}
+  a{color:var(--accent)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+  .demo{background:var(--warn-soft);color:var(--warn);text-align:center;font-size:14px;padding:6px 16px}
+  header.top{position:sticky;top:0;z-index:20;background:rgba(58,29,92,.97);backdrop-filter:blur(6px)}
+  header.top .wrap{display:flex;align-items:center;gap:10px;height:58px}
+  header.top img{height:38px}
+  header.top .brand{color:#fff;font-family:var(--f-head);font-weight:700;letter-spacing:.5px;white-space:nowrap}
+  nav{margin-left:auto;display:flex;gap:2px}
+  nav a{color:#efe6fa;text-decoration:none;padding:6px 10px;border-radius:8px;font-size:15px;white-space:nowrap}
+  nav a:hover{background:rgba(255,255,255,.12)}
+  nav a.login{background:var(--gold);color:var(--gold-ink);font-weight:700}
+  .hero{background:linear-gradient(135deg,#3a1d5c 0%,#5b2d8e 100%);color:#fff;position:relative;overflow:hidden;padding:48px 0 96px}
+  .hero:before{content:"";position:absolute;right:-140px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(246,166,35,.38),transparent 65%)}
+  .hero .crest-bg{position:absolute;right:3%;bottom:-70px;width:360px;max-width:60%;opacity:.12;pointer-events:none}
+  .hero .wrap{position:relative}
+  .pill{display:inline-block;background:var(--gold);color:var(--gold-ink);font-weight:700;border-radius:999px;padding:4px 16px}
+  .hero h1{font-size:clamp(46px,10vw,96px);line-height:.95;margin:14px 0 12px;font-weight:700;font-style:italic;letter-spacing:1px}
+  .hero h1 span{color:var(--gold)}
+  .hero p.lead{font-size:clamp(17px,2.4vw,20px);margin:0 0 24px;opacity:.95;max-width:640px}
+  .btn{display:inline-block;border:0;border-radius:12px;padding:13px 22px;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none;line-height:1.3}
+  .btn-main{background:linear-gradient(90deg,#e87700,#f6a623);color:#fff;box-shadow:0 6px 18px rgba(232,119,0,.35)}
+  .btn-line{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.65)}
+  .btn-soft{background:var(--surface-2);color:var(--accent)}
+  .btn:disabled{opacity:.6;cursor:wait}
+  .cta{display:flex;flex-wrap:wrap;gap:10px}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-58px;position:relative;z-index:2}
+  .fact{background:var(--surface);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+  .fact small{display:block;color:var(--muted)}
+  .fact strong{font-family:var(--f-head);color:var(--accent);font-size:21px;line-height:1.3;display:block}
+  .fact strong em{font-style:normal;color:var(--orange);font-size:28px}
+  section{padding:46px 0 6px;scroll-margin-top:60px}
+  section h2{font-size:28px;color:var(--accent);margin:0 0 4px}
+  section .sub{color:var(--muted);margin:0 0 20px}
+  .announce{display:none;background:var(--warn-soft);color:var(--ink);border-left:5px solid var(--orange);border-radius:12px;padding:12px 16px;margin-top:20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .group{background:var(--surface);border-radius:18px;padding:22px;border:1.5px solid var(--line);display:flex;align-items:center;gap:18px}
+  .group .lv{font-family:var(--f-head);font-weight:700;font-size:40px;color:var(--accent);white-space:nowrap}
+  .group .to{font-family:var(--f-head);font-size:20px;color:var(--orange);font-weight:700}
+  .group .cnt{color:var(--muted);font-size:14px}
+  .tag-full{display:inline-block;background:var(--err-soft);color:var(--err);border-radius:999px;padding:0 10px;font-size:13px;font-weight:600}
+  .timeline{list-style:none;margin:0;padding:0;position:relative}
+  .timeline:before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:3px}
+  .timeline li{position:relative;padding:0 0 18px 48px}
+  .timeline li:before{content:"";position:absolute;left:6px;top:6px;width:21px;height:21px;border-radius:50%;background:var(--surface);border:4px solid var(--purple-2)}
+  .timeline li.key:before{background:var(--orange);border-color:var(--orange)}
+  .timeline .d{font-family:var(--f-head);font-weight:700;color:var(--accent)}
+  .timeline .n{color:var(--muted);font-size:15px}
+  .card{background:var(--surface);border-radius:18px;padding:20px;border:1.5px solid var(--line)}
+  .card h3{margin:0 0 10px;color:var(--accent);font-size:19px}
+  table{width:100%;border-collapse:collapse}
+  td,th{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:14px}
+  td.t{white-space:nowrap;font-family:var(--f-head);font-weight:600;color:var(--accent)}
+  td.r,th.r{text-align:right}
+  td.r{font-family:var(--f-head);font-weight:700}
+  .subjects{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .subjects span{background:var(--surface-2);color:var(--accent);border-radius:999px;padding:4px 12px;font-weight:600;font-size:15px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .step{background:var(--surface);border-radius:16px;padding:18px;border:1.5px solid var(--line)}
+  .num{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;margin-bottom:6px}
+  .step h3{margin:0 0 4px;font-size:18px;color:var(--accent)}
+  .step p{margin:0;font-size:15px;color:var(--muted)}
+  .bank{margin-top:16px;background:var(--surface);border-radius:16px;padding:16px 18px;border:1.5px solid var(--line);display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+  .bank .acc{font-family:var(--f-head);font-size:26px;font-weight:700;color:var(--accent);letter-spacing:1px}
+  .bank .go{margin-left:auto}
+  ul.rules{margin:0;padding-left:20px}
+  ul.rules li{margin:4px 0}
+  ul.rules b{color:var(--err)}
+  .equip{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:0;padding:0;list-style:none}
+  .equip li:before{content:"✓ ";color:var(--ok);font-weight:700}
+  .awards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .award{border-radius:18px;padding:20px;background:linear-gradient(90deg,#e87700,#f6a623);color:#fff}
+  .award strong{font-family:var(--f-head);font-size:34px;font-style:italic;display:block;line-height:1.1}
+  .note{font-size:14px;color:var(--muted)}
+  /* เข้าสู่ระบบ */
+  .login-wrap{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:18px;align-items:start}
+  .panel{background:var(--surface);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-weight:600;margin:0 0 4px}
+  input{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;margin-bottom:12px;background:var(--surface);color:var(--ink)}
+  input:focus{outline:none;border-color:var(--purple-2);box-shadow:0 0 0 3px rgba(91,45,142,.18)}
+  .hint{color:var(--muted);font-size:14px}
+  .err{color:var(--err);margin-top:8px;min-height:1em}
+  .dash{display:none}
+  .login-wrap.in{grid-template-columns:minmax(0,1fr)} .login-wrap.in #lkForm,.login-wrap.in #lkInfo{display:none}
+  .infop h3{margin:0 0 10px;color:var(--accent);font-size:18px} .infop ul{margin:0;padding-left:20px} .infop li{margin:4px 0} .infop .lock{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--accent-soft, rgba(91,45,142,.08));font-size:14px}
+  .who{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .who .name{font-family:var(--f-head);font-size:23px;color:var(--accent);font-weight:700;line-height:1.3}
+  .who .out{margin-left:auto}
+  .badge{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:600;font-size:15px}
+  .b-ok{background:var(--ok-soft);color:var(--ok)} .b-wait{background:var(--warn-soft);color:var(--warn)} .b-err{background:var(--err-soft);color:var(--err)}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0 0}
+  .kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:600}
+  .seat{margin-top:14px;background:linear-gradient(135deg,#3a1d5c,#5b2d8e);color:#fff;border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .seat small{display:block;opacity:.85}
+  .seat strong{font-family:var(--f-head);font-size:24px;color:var(--gold)}
+  .dash .block{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .dash h3{margin:0 0 8px;color:var(--accent);font-size:18px}
+  .top10{display:inline-block;margin-top:10px;background:linear-gradient(90deg,#e87700,#f6a623);color:#fff;border-radius:999px;padding:4px 14px;font-weight:700}
+  footer{margin-top:56px;background:#3a1d5c;color:#e9def7;padding:26px 0;font-size:15px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+  /* บัตรประจำตัวผู้เข้าสอบ: แสดงเป็นหน้าต่างบนจอ และพิมพ์เฉพาะตัวบัตร */
+  #examCard{display:none;position:fixed;inset:0;z-index:50;background:rgba(20,12,30,.62);overflow:auto;padding:24px 16px}
+  #examCard.open{display:block}
+  .ec-bar{max-width:640px;margin:0 auto 12px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+  .ec{background:#fff;color:#1a1422;border:2px solid #3a1d5c;border-radius:16px;padding:22px;max-width:640px;margin:0 auto;font-family:var(--f-body)}
+  .ec-head{display:flex;gap:14px;align-items:center;border-bottom:1.5px solid #3a1d5c;padding-bottom:12px}
+  .ec-head img{height:72px;width:auto}
+  .ec-head h2{margin:0;font-family:var(--f-head);color:#3a1d5c;font-size:24px}
+  .ec-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;margin:16px 0 0;font-size:16px}
+  .ec-grid dt{color:#5c5466} .ec-grid dd{margin:0;font-weight:700}
+  .ec-seat{font-family:var(--f-head);font-size:34px;line-height:1.1;color:#3a1d5c}
+  .ec-rules{margin-top:16px;font-size:14px;border-top:1px dashed #999;padding-top:10px;color:#333}
+  @media print{
+    body{background:#fff !important;color:#000}
+    body > *:not(#examCard){display:none !important}
+    #examCard,#examCard.open{display:block;position:static;background:#fff;padding:10mm;overflow:visible}
+    .ec-bar{display:none !important}
+    .ec{max-width:170mm;border-radius:6mm;padding:8mm}
+    .ec-head img{height:22mm}
+  }
+  @media (max-width:860px){ nav a:not(.login){display:none} .facts,.steps{grid-template-columns:1fr 1fr} .grid2,.awards,.login-wrap{grid-template-columns:1fr} }
+  @media (max-width:480px){ .facts,.steps{grid-template-columns:1fr} .group{flex-direction:column;align-items:flex-start;gap:4px} .seat{grid-template-columns:1fr 1fr} .equip{grid-template-columns:1fr} header.top .brand{font-size:15px} .bank .go{margin-left:0} }
+</style>
+</head>
+<body>
+<div class="demo" id="demoBar" hidden>ตัวอย่างหน้าเว็บ (ยังไม่ได้เชื่อมระบบสมัครจริง) · ทดลองเข้าระบบด้วยเลข <b>1234567890121</b> และเบอร์ <b>0812345678</b></div>
+<header class="top"><div class="wrap">
+  <img src="assets/emblem-gold.png" alt="ตราโรงเรียนพรตพิทยพยัต">
+  <span class="brand">PRE PROT TEST 2570</span>
+  <nav><a href="#schedule">กำหนดการ</a><a href="#apply">วิธีสมัคร</a><a href="#rules">ระเบียบการสอบ</a><a class="login" href="#login">เข้าสู่ระบบผู้สมัคร</a></nav>
+</div></header>
+
+<div class="hero">
+  <img class="crest-bg" src="assets/emblem-gold.png" alt="">
+  <div class="wrap">
+    <span class="pill">ลองสนามจริง ก่อนสอบจริง</span>
+    <h1>PRE PROT<br><span>TEST</span> 2570</h1>
+    <p class="lead">สร้างความมั่นใจ คุ้นชินสนามสอบ · ข้อสอบจากคณะกรรมการของโรงเรียน สนามสอบจริง ระบบการสอบจริง</p>
+    <div class="cta">
+      <a class="btn btn-main applyLink" href="#apply">สมัครสอบออนไลน์</a>
+      <a class="btn btn-line" href="#login">เข้าสู่ระบบผู้สมัคร</a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="facts">
+    <div class="fact"><small>วันสอบ</small><strong>24 ม.ค. 2570</strong><div class="hint">วันอาทิตย์</div></div>
+    <div class="fact"><small>รับสมัคร</small><strong>มกราคม 2570</strong><div class="hint" id="regState">ออนไลน์</div></div>
+    <div class="fact"><small>ค่าสมัครสอบ</small><strong><em>99</em> บาท</strong><div class="hint">ต่อคน</div></div>
+    <div class="fact"><small>สถานที่สอบ</small><strong>โรงเรียนพรตพิทยพยัต</strong><div class="hint">ถ.หลวงพรต เขตลาดกระบัง</div></div>
+  </div>
+  <div class="announce" id="announce"></div>
+
+  <section>
+    <h2>ใครสมัครได้</h2>
+    <p class="sub">เลือกสนามตามระดับชั้นที่จะสอบเข้า</p>
+    <div class="grid2">
+      <div class="group"><div class="lv">ป.5–ป.6</div><div><div class="to">ลองสนามสอบเข้า ม.1</div><div class="cnt" data-g="P"></div></div></div>
+      <div class="group"><div class="lv">ม.3</div><div><div class="to">ลองสนามสอบเข้า ม.4</div><div class="cnt" data-g="M"></div></div></div>
+    </div>
+  </section>
+
+  <section id="schedule">
+    <h2>กำหนดการ</h2>
+    <p class="sub">อัปเดตจากระบบรับสมัครโดยอัตโนมัติ</p>
+    <div class="grid2">
+      <ul class="timeline" id="timeline"><li class="hint">กำลังโหลด...</li></ul>
+      <div class="card">
+        <h3>ตารางเวลาวันสอบ</h3>
+        <table id="timetable"><tbody><tr><td class="hint">กำลังโหลด...</td></tr></tbody></table>
+        <div class="subjects"><span>ภาษาไทย</span><span>คณิตศาสตร์</span><span>วิทยาศาสตร์</span><span>สังคมศึกษาฯ</span><span>ภาษาอังกฤษ</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apply">
+    <h2>วิธีสมัคร</h2>
+    <p class="sub">สมัครพร้อมกันได้สูงสุด 5 คนต่อสลิป (เช่น พี่น้อง) โอนครั้งเดียวตามจำนวนคน</p>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><h3>โอนค่าสมัคร</h3><p>99 บาทต่อคน เข้าบัญชีโรงเรียนด้านล่าง</p></div>
+      <div class="step"><span class="num">2</span><h3>กรอกใบสมัคร</h3><p>ข้อมูลผู้ปกครองและผู้สมัคร</p></div>
+      <div class="step"><span class="num">3</span><h3>แนบสลิป</h3><p>ภาพสลิปต้นฉบับจากแอปธนาคาร เห็น QR Code ชัด</p></div>
+      <div class="step"><span class="num">4</span><h3>เข้าสู่ระบบ</h3><p>ด้วยเลขประจำตัวประชาชน + เบอร์โทรที่ใช้สมัคร</p></div>
+    </div>
+    <div class="bank">
+      <div><div class="hint">ธนาคารกรุงไทย สาขาเทคโนโลยีพระจอมเกล้าฯ ลาดกระบัง</div><div class="acc">693-0-53838-8</div><div><strong>เงินสวัสดิการโรงเรียนพรตพิทยพยัต</strong></div></div>
+      <a class="btn btn-main applyLink go" href="#apply">ไปที่ใบสมัคร</a>
+    </div>
+    <p class="note">ระบบตรวจสลิปซ้ำ เลขบัญชีผู้รับ และยอดเงินให้อัตโนมัติ การสมัครสมบูรณ์เมื่อสถานะเป็น "ยืนยันการชำระเงินแล้ว" ซึ่งเจ้าหน้าที่ตรวจกับรายการเงินเข้าบัญชีโรงเรียน</p>
+  </section>
+
+  <section id="rules">
+    <h2>ระเบียบการสอบ</h2>
+    <p class="sub">ตามระเบียบการสอบ PRE PROT TEST ปีที่ผ่านมา</p>
+    <div class="grid2">
+      <div class="card"><h3>ข้อปฏิบัติ</h3>
+        <ul class="rules">
+          <li>ไม่มีเลขที่นั่งสอบ <b>ไม่มีสิทธิ์สอบ</b></li>
+          <li>ไม่มีบัตรแสดงตน <b>ไม่มีสิทธิ์สอบ</b></li>
+          <li>มาสายเกิน 15 นาที <b>ไม่มีสิทธิ์สอบในวิชานั้น</b></li>
+          <li>ห้ามนำเครื่องมืออุปกรณ์สื่อสารเข้าห้องสอบ</li>
+          <li>นำนาฬิกาเข้าห้องสอบได้ (นาฬิกาธรรมดาที่ใช้ดูเวลาเท่านั้น)</li>
+          <li>ให้นั่งสอบจนหมดเวลา</li>
+        </ul>
+      </div>
+      <div class="card"><h3>อุปกรณ์เข้าห้องสอบ</h3>
+        <ul class="equip">
+          <li>ดินสอดำ 2B (ระบายคำตอบ)</li><li>กบเหลาดินสอ</li><li>ยางลบ</li><li>ปากกาสำหรับเซ็นชื่อ</li><li>บัตรประจำตัวประชาชน</li><li>นาฬิกา (แบบเข็ม)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="login">
+    <h2>เข้าสู่ระบบผู้สมัคร</h2>
+    <p class="sub">ดูสถานะการสมัคร เลขที่นั่งสอบ พิมพ์บัตรเข้าสอบ และผลสอบ เฉพาะของตนเอง</p>
+    <div class="login-wrap">
+      <form class="panel" id="lkForm" autocomplete="off">
+        <label for="lkId">เลขประจำตัวประชาชน หรือ เลขที่สมัคร</label>
+        <input id="lkId" maxlength="17" placeholder="13 หลัก หรือ เช่น P700001">
+        <label for="lkPhone">รหัสผ่าน (เบอร์โทรศัพท์ที่ใช้สมัคร)</label>
+        <input id="lkPhone" type="password" inputmode="numeric" maxlength="12" placeholder="08xxxxxxxx">
+        <button class="btn btn-main" style="width:100%" id="lkBtn">เข้าสู่ระบบ</button>
+        <div class="err" id="lkErr" role="alert"></div>
+        <p class="hint" id="pubState" style="margin-bottom:0"></p>
+      </form>
+      <div class="panel infop" id="lkInfo">
+        <h3>สิ่งที่ดูได้หลังเข้าสู่ระบบ</h3>
+        <ul>
+          <li>สถานะการตรวจสลิปและการชำระเงิน</li>
+          <li>เลขที่นั่งสอบ ห้องสอบ และพิมพ์บัตรเข้าสอบ (เมื่อประกาศแล้ว)</li>
+          <li>คะแนนสอบรายวิชาและคะแนนรวม (เมื่อประกาศผลแล้ว)</li>
+        </ul>
+        <div class="lock">เว็บไซต์นี้ไม่มีการประกาศรายชื่อผู้สมัครทั้งหมด ผู้สมัครเห็นเฉพาะข้อมูลของตนเองเมื่อกรอกเลขประจำตัวประชาชนหรือเลขที่สมัครคู่กับเบอร์โทรศัพท์ที่ใช้สมัครถูกต้อง</div>
+      </div>
+      <div class="panel dash" id="dash" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>รางวัลและสิทธิพิเศษ</h2>
+    <div class="awards">
+      <div class="award"><strong>TOP 10</strong>รับเกียรติบัตร ผลการสอบยอดเยี่ยม</div>
+      <div class="award"><strong>TOP 5</strong>รับสิทธิพิเศษ ลดหย่อนค่าเทอม*</div>
+    </div>
+    <p class="note">*เงื่อนไขเป็นไปตามประกาศของโรงเรียน</p>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <div><strong>โรงเรียนพรตพิทยพยัต</strong> · เลขที่ 4 ถ.หลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</div>
+  <div id="contact">ทีมงานวัดผลและประเมินผล</div>
+</div></footer>
+
+<div id="examCard"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  var API = ((window.PPT_CONFIG && window.PPT_CONFIG.apiUrl) || '').trim();
+  var DEMO = !API;
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  // ---------- ข้อมูลตัวอย่าง (โหมดสาธิต) ----------
+  var DEMO_INFO = { ok:true, counts:{P:128,M:74}, seatsPublished:true, resultsPublished:true,
+    announcement:'ตัวอย่างประกาศ: เปิดรับสมัครออนไลน์ เดือนมกราคม 2570',
+    config:{ registrationOpen:true, contact:'กลุ่มบริหารวิชาการ โทร. 0-2326-4050', groups:[{code:'P',full:false},{code:'M',full:false}] },
+    schedule:[
+      {date:'มกราคม 2570', item:'เปิดรับสมัครออนไลน์', note:'วันเริ่ม-สิ้นสุด รอประกาศ'},
+      {date:'(รอกำหนด)', item:'ประกาศเลขที่นั่งสอบและห้องสอบ', note:'เข้าระบบที่เว็บไซต์นี้'},
+      {date:'24 มกราคม 2570', item:'วันสอบ', note:'ณ โรงเรียนพรตพิทยพยัต'},
+      {date:'(รอกำหนด)', item:'ประกาศผลสอบ', note:'TOP 10 รับเกียรติบัตร · TOP 5 รับสิทธิพิเศษลดหย่อนค่าเทอม*'}],
+    timetable:[
+      {time:'07.30–08.00 น.', item:'ลงทะเบียนและเข้าแถวตามห้องสอบ', note:'ลานโดมอเนกประสงค์'},
+      {time:'08.30–10.00 น.', item:'สอบวิชาคณิตศาสตร์ และวิชาภาษาอังกฤษ', note:''},
+      {time:'10.00–10.10 น.', item:'พัก', note:''},
+      {time:'10.10–12.10 น.', item:'สอบวิชาวิทยาศาสตร์ วิชาภาษาไทย และวิชาสังคมศึกษาฯ', note:''}] };
+  var DEMO_ME = { ok:true, appId:'P700001', name:'เด็กหญิงตัวอย่าง ทดสอบระบบ', idMasked:'1-xxxx-xxxxx-12-1', grade:'ป.6', groupCode:'P',
+    group:'ลองสนามสอบเข้า ม.1', school:'โรงเรียนตัวอย่าง', submissionId:'T700001',
+    payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
+    seatsPublished:true, seat:{ seatNo:'P0105', room:'531', building:'อาคาร 5' },
+    resultsPublished:true, result:{ scores:[{subject:'ภาษาไทย',score:20,full:null},{subject:'คณิตศาสตร์',score:18,full:null},{subject:'วิทยาศาสตร์',score:22,full:null},{subject:'สังคมศึกษาฯ',score:15,full:null},{subject:'ภาษาอังกฤษ',score:24,full:null}], total:99, totalFull:null, rank:4, top10:true },
+    examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' };
+
+  function call(body){
+    if (DEMO) return new Promise(function(res){ setTimeout(function(){
+      if (body.action === 'info') return res(DEMO_INFO);
+      if (body.action === 'login') {
+        var id = String(body.id).replace(/[\s-]/g,'').toUpperCase(), ph = String(body.phone).replace(/\D/g,'');
+        if ((id === '1234567890121' || id === 'P700001') && ph === '0812345678') return res(DEMO_ME);
+        return res({ ok:false, error:'ไม่พบข้อมูล หรือเบอร์โทรศัพท์ไม่ตรงกับที่ใช้สมัคร (ตัวอย่าง: 1234567890121 / 0812345678)' });
+      }
+    }, 450); });
+    return fetch(API, { method:'POST', body: JSON.stringify(body), redirect:'follow' }).then(function(r){ return r.json(); });
+  }
+
+  if (DEMO) $('demoBar').hidden = false;
+  document.querySelectorAll('.applyLink').forEach(function(a){
+    if (API) { a.href = API; a.target = '_blank'; a.rel = 'noopener'; }
+    else { a.href = 'form-demo.html'; }
+  });
+
+  call({ action:'info' }).then(function(d){
+    if (!d || !d.ok) throw 0;
+    $('timeline').innerHTML = (d.schedule || []).map(function(s){
+      return '<li' + (/วันสอบ/.test(s.item) ? ' class="key"' : '') + '><div class="d">' + esc(s.date) + '</div><div>' + esc(s.item) + '</div>' + (s.note ? '<div class="n">' + esc(s.note) + '</div>' : '') + '</li>';
+    }).join('') || '<li class="hint">รอประกาศกำหนดการ</li>';
+    $('timetable').innerHTML = '<tbody>' + ((d.timetable || []).map(function(r){
+      return '<tr><td class="t">' + esc(r.time) + '</td><td>' + esc(r.item) + (r.note ? '<div class="hint">' + esc(r.note) + '</div>' : '') + '</td></tr>';
+    }).join('') || '<tr><td class="hint">รอประกาศ</td></tr>') + '</tbody>';
+    var full = {}; (d.config.groups || []).forEach(function(g){ full[g.code] = g.full; });
+    document.querySelectorAll('[data-g]').forEach(function(el){
+      var g = el.getAttribute('data-g'), n = d.counts && d.counts[g];
+      el.innerHTML = (n ? 'สมัครแล้ว ' + Number(n).toLocaleString('th-TH') + ' คน ' : '') + (full[g] ? '<span class="tag-full">ที่นั่งเต็ม</span>' : '');
+    });
+    if (d.announcement) { $('announce').style.display = 'block'; $('announce').textContent = d.announcement; }
+    $('regState').textContent = d.config.registrationOpen ? 'เปิดรับสมัครแล้ว' : 'ยังไม่เปิดรับสมัคร';
+    if (d.config.contact) $('contact').textContent = 'ทีมงานวัดผลและประเมินผล · ' + d.config.contact;
+    $('pubState').textContent = 'ที่นั่งสอบ: ' + (d.seatsPublished ? 'ประกาศแล้ว' : 'ยังไม่ประกาศ') + ' · ผลสอบ: ' + (d.resultsPublished ? 'ประกาศแล้ว' : 'ยังไม่ประกาศ');
+  }).catch(function(){
+    $('timeline').innerHTML = '<li class="hint">โหลดกำหนดการไม่สำเร็จ กรุณาลองใหม่ภายหลัง</li>';
+    $('timetable').innerHTML = '<tbody><tr><td class="hint">โหลดไม่สำเร็จ</td></tr></tbody>';
+  });
+
+  var me = null;
+  function render(d){
+    me = d;
+    var cls = d.payment.state === 'ok' ? 'b-ok' : d.payment.state === 'rejected' ? 'b-err' : 'b-wait';
+    var h = '<div class="who"><div><div class="hint">เลขที่สมัคร ' + esc(d.appId) + '</div><div class="name">' + esc(d.name) + '</div></div>' +
+      '<button type="button" class="btn btn-soft out" id="logout">ออกจากระบบ</button></div>' +
+      '<dl class="kv"><dt>เลขประจำตัวประชาชน</dt><dd>' + esc(d.idMasked) + '</dd><dt>ชั้น</dt><dd>' + esc(d.grade) + ' · ' + esc(d.group) + '</dd>' +
+      '<dt>โรงเรียนปัจจุบัน</dt><dd>' + esc(d.school) + '</dd></dl>' +
+      '<div class="block"><h3>การชำระเงิน</h3><span class="badge ' + cls + '">' + esc(d.payment.text) + '</span>' +
+      (d.payment.message ? '<p>' + esc(d.payment.message) + '</p>' : '') +
+      (d.payment.state === 'pending' ? '<p class="hint">เจ้าหน้าที่ตรวจกับรายการเงินเข้าบัญชีโรงเรียน โดยปกติภายใน 1–2 วันทำการ</p>' : '') + '</div>';
+    h += '<div class="block"><h3>ที่นั่งสอบ</h3>';
+    if (d.seat) {
+      h += '<div class="seat"><div><small>เลขที่นั่งสอบ</small><strong>' + esc(d.seat.seatNo) + '</strong></div><div><small>ห้องสอบ</small><strong>' + esc(d.seat.room) + '</strong></div><div><small>อาคาร</small><strong>' + esc(d.seat.building) + '</strong></div></div>' +
+        '<p><button type="button" class="btn btn-main" id="printCard">ดูและพิมพ์บัตรเข้าสอบ</button></p>';
+    } else {
+      h += '<p class="hint">' + (d.payment.state !== 'ok' ? 'จะแสดงเมื่อยืนยันการชำระเงินแล้ว' : 'ยังไม่ประกาศเลขที่นั่งสอบ') + '</p>';
+    }
+    h += '</div><div class="block"><h3>ผลสอบ</h3>';
+    if (d.result) {
+      h += '<table><thead><tr><th>วิชา</th><th class="r">คะแนน</th></tr></thead><tbody>' + d.result.scores.map(function(s){
+        return '<tr><td>' + esc(s.subject) + '</td><td class="r">' + esc(s.score) + (s.full ? ' / ' + esc(s.full) : '') + '</td></tr>'; }).join('') +
+        '<tr><td><strong>คะแนนรวม</strong></td><td class="r">' + esc(d.result.total) + (d.result.totalFull ? ' / ' + esc(d.result.totalFull) : '') + '</td></tr>' +
+        (d.result.rank ? '<tr><td>อันดับในสนามสอบ</td><td class="r">' + esc(d.result.rank) + '</td></tr>' : '') + '</tbody></table>' +
+        (d.result.top10 ? '<span class="top10">TOP 10 รับเกียรติบัตร</span>' : '');
+    } else {
+      h += '<p class="hint">' + (d.resultsPublished ? 'ไม่พบผลสอบ (อาจขาดสอบ) กรุณาติดต่อเจ้าหน้าที่' : 'ยังไม่ประกาศผลสอบ') + '</p>';
+    }
+    h += '</div>';
+    $('dash').innerHTML = h; $('dash').style.display = 'block'; document.querySelector('.login-wrap').classList.add('in');
+    $('logout').onclick = function(){ me = null; $('dash').style.display = 'none'; $('dash').innerHTML = ''; document.querySelector('.login-wrap').classList.remove('in'); $('lkForm').reset(); $('lkId').focus(); };
+    if ($('printCard')) $('printCard').onclick = printCard;
+    $('login').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function printCard(){
+    var d = me; if (!d || !d.seat) return;
+    $('examCard').innerHTML = '<div class="ec-bar"><button type="button" class="btn btn-main" id="ecPrint">พิมพ์ / บันทึกเป็น PDF</button><button type="button" class="btn btn-soft" id="ecClose">ปิด</button></div>' +
+      '<div class="ec" role="dialog" aria-label="บัตรประจำตัวผู้เข้าสอบ"><div class="ec-head"><img src="assets/emblem-purple.png" alt=""><div><h2>บัตรประจำตัวผู้เข้าสอบ</h2><div>PRE PROT TEST 2570 · โรงเรียนพรตพิทยพยัต</div></div></div>' +
+      '<dl class="ec-grid"><dt>เลขที่นั่งสอบ</dt><dd class="ec-seat">' + esc(d.seat.seatNo) + '</dd>' +
+      '<dt>ชื่อ-นามสกุล</dt><dd>' + esc(d.name) + '</dd><dt>เลขที่สมัคร</dt><dd>' + esc(d.appId) + '</dd>' +
+      '<dt>สนามสอบ</dt><dd>' + esc(d.group) + '</dd><dt>ห้องสอบ</dt><dd>ห้อง ' + esc(d.seat.room) + ' ' + esc(d.seat.building) + '</dd>' +
+      '<dt>วันสอบ</dt><dd>' + esc(d.examDate) + ' ณ ' + esc(d.place) + '</dd></dl>' +
+      '<div class="ec-rules">นำบัตรนี้และบัตรประจำตัวประชาชนมาในวันสอบ · มาสายเกิน 15 นาทีไม่มีสิทธิ์สอบในวิชานั้น · ห้ามนำอุปกรณ์สื่อสารเข้าห้องสอบ · ระบายคำตอบด้วยดินสอดำ 2B เท่านั้น</div></div>';
+    $('examCard').classList.add('open');
+    $('ecPrint').onclick = function(){ window.print(); };
+    $('ecClose').onclick = function(){ $('examCard').classList.remove('open'); $('examCard').innerHTML = ''; $('printCard').focus(); };
+    $('ecPrint').focus();
+  }
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && $('ecClose')) $('ecClose').click(); });
+
+  $('lkForm').onsubmit = function(e){
+    e.preventDefault();
+    var id = $('lkId').value.trim(), ph = $('lkPhone').value.replace(/\D/g, '');
+    $('lkErr').textContent = '';
+    if (!id) { $('lkErr').textContent = 'กรุณากรอกเลขประจำตัวประชาชน หรือเลขที่สมัคร'; return; }
+    if (ph.length < 9) { $('lkErr').textContent = 'กรุณากรอกเบอร์โทรศัพท์ที่ใช้สมัคร'; return; }
+    var b = $('lkBtn'); b.disabled = true; b.textContent = 'กำลังตรวจสอบ...';
+    call({ action:'login', id:id, phone:ph }).then(function(d){
+      b.disabled = false; b.textContent = 'เข้าสู่ระบบ';
+      if (!d.ok) { $('lkErr').textContent = d.error; return; }
+      $('lkPhone').value = '';
+      render(d);
+    }).catch(function(){ b.disabled = false; b.textContent = 'เข้าสู่ระบบ'; $('lkErr').textContent = 'เชื่อมต่อระบบไม่สำเร็จ กรุณาลองใหม่'; });
+  };
+})();
+</script>
+</body>
+</html>
