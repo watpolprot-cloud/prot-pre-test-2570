@@ -241,11 +241,60 @@
   .sc .bar i{display:block;height:100%;width:0;border-radius:999px;background:var(--purple-2);transition:width .9s cubic-bezier(.2,.8,.2,1)}
   .sc .v{font:800 italic 19px/1 var(--f-mark);color:var(--accent);text-align:right;white-space:nowrap}
   .sc .v small{font-size:13px;font-weight:700;color:var(--muted)}
+  .res-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:6px 0 18px}
+  .rc{border-radius:16px;padding:14px 18px;border:1.5px solid var(--line);background:var(--surface)}
+  .rc small{display:block;color:var(--muted);font-size:14px}
+  .rc b{display:block;font:900 italic 42px/1.08 var(--f-mark);color:var(--purple-2)}
+  .rc b span{font-size:20px;font-weight:800;color:var(--muted);margin-left:4px}
+  .rc em{display:block;font-style:normal;font-size:14px;color:var(--muted);line-height:1.45;margin-top:2px}
+  .rc.main{background:var(--night);border-color:var(--night);color:#fff}
+  .rc.main small,.rc.main em{color:#cbbde6} .rc.main b{color:var(--gold)} .rc.main b span{color:#e2d6f5}
+  .rc .top10{margin-top:6px;font-size:14px;padding:2px 12px}
+  .pos{border:1.5px solid var(--line);border-radius:16px;padding:16px 18px 14px;margin-bottom:18px;background:linear-gradient(180deg,var(--surface),var(--surface-2))}
+  .pos-h,.subj-h{font-weight:700;color:var(--accent);margin-bottom:34px}
+  .subj-h{margin:0 0 10px}
+  .pos-track{position:relative;height:14px;border-radius:999px;background:linear-gradient(90deg,#e9e1f6,#cdb9ef 50%,#e9e1f6)}
+  .pos-track span{position:absolute;top:50%;transform:translate(-50%,-50%)}
+  .pos-mean{width:3px;height:26px;background:var(--gold);border-radius:2px}
+  .pos-me{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#4a4652,#1d1b22);box-shadow:0 0 0 4px rgba(247,181,0,.45);transition:left .9s cubic-bezier(.2,.8,.2,1)}
+  .pos-track em{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:13px;font-weight:700}
+  .pos-mean em{color:var(--warn)} .pos-me em{color:var(--accent);bottom:calc(100% + 8px)}
+  .pos-mean.low em{bottom:auto;top:calc(100% + 6px)}
+  .pos-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px}
+  .pos-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:14px;color:var(--muted)}
+  .pos-meta b{color:var(--ink)}
+  .subj{display:grid;gap:10px}
+  .srow{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(0,2fr) 78px minmax(0,1.6fr);gap:6px 16px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
+  .sname{font-weight:600}
+  .stag{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;border-radius:999px;padding:1px 9px;vertical-align:middle}
+  .stag.best{background:var(--ok-soft);color:var(--ok)} .stag.low{background:var(--warn-soft);color:var(--warn)}
+  .strack{position:relative;height:12px;border-radius:999px;background:var(--surface-2)}
+  .strack i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;background:var(--purple-2);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .strack b{position:absolute;top:-4px;bottom:-4px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--gold)}
+  .sval{font:800 italic 20px/1 var(--f-mark);color:var(--accent);text-align:right;white-space:nowrap}
+  .sval small{font-size:13px;color:var(--muted)}
+  .sstat{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .sstat span{font-size:13px;background:var(--surface-2);color:var(--muted);border-radius:8px;padding:2px 8px;white-space:nowrap}
+  .sstat span b{color:var(--accent)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);margin:10px 2px 0}
+  .legend i{display:inline-block;width:18px;height:8px;border-radius:999px;background:var(--purple-2);vertical-align:middle;margin-right:6px}
+  .legend i.m{width:3px;height:14px;background:var(--gold);border-radius:2px}
+  .gloss{margin-top:18px;border-radius:16px;background:var(--surface-2);padding:16px 18px}
+  .gloss-h{font-weight:700;color:var(--accent);margin-bottom:10px}
+  .gloss dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px;margin:0}
+  .gloss dt{font-weight:700;color:var(--ink)}
+  .gloss dt span{font:900 italic 15px/1 var(--f-mark);color:var(--purple-2);margin-right:6px}
+  .gloss dd{margin:2px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
+  .gloss p{margin:12px 0 0;font-size:13px;color:var(--muted)}
+  @media (max-width:900px){ .res-grid{grid-template-columns:1fr 1fr} .gloss dl{grid-template-columns:1fr} }
+  @media (max-width:560px){ .srow{grid-template-columns:1fr auto} .strack{grid-column:1 / -1;order:3} .sstat{grid-column:1 / -1;order:4;justify-content:flex-start} .rc b{font-size:34px} }
   .ec-tb{margin-top:14px;font-size:16px}
   .ec-tb th,.ec-tb td{border-bottom:1px solid #d9d2e3;color:#1a1422;padding:7px 10px}
   .ec-tb .sum td{font-weight:700;border-top:1.5px solid #3a1d5c}
   .ec-rank{margin:12px 0 0;font-size:17px}
   .ec-rank b{font:900 italic 26px/1 var(--f-mark);color:#3a1d5c}
+  .ec-tb th,.ec-tb td{padding:6px 8px}
+  .ec-note{margin-top:10px;font-size:13px;color:#333;line-height:1.5}
   .ec-demo{margin-top:12px;border:1.5px dashed #a35a00;color:#a35a00;border-radius:8px;padding:6px 10px;font-weight:700;text-align:center}
 
   /* ---------- รางวัล ---------- */
@@ -536,19 +585,25 @@
   // บัญชีจำลองสำหรับดูตัวอย่างการรายงานผลสอบ (ใช้ได้ทั้งเว็บจริงและโหมดสาธิต ไม่เรียกระบบรับสมัคร)
   // เข้าระบบด้วยเลขที่สมัคร DEMO1 หรือ DEMO4 และรหัสผ่าน 0000000000
   var PREVIEW_PHONE = '0000000000';
-  function previewScores(a){ var n = ['ภาษาไทย','คณิตศาสตร์','วิทยาศาสตร์','สังคมศึกษาฯ','ภาษาอังกฤษ']; return a.map(function(v, i){ return { subject:n[i], score:v, full:30 }; }); }
+  function nrm(z){ var t = 1 / (1 + 0.2316419 * Math.abs(z)), d = 0.3989423 * Math.exp(-z * z / 2), p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z > 0 ? 1 - p : p; }
+  function pst(x, mean, sd, n, min, max){ var z = (x - mean) / sd; return { n:n, mean:mean, sd:sd, min:min, max:max, t:Math.round((50 + 10 * z) * 10) / 10, pr:Math.round(nrm(z) * 1000) / 10 }; }
+  function previewResult(o){
+    var names = ['ภาษาไทย','คณิตศาสตร์','วิทยาศาสตร์','สังคมศึกษาฯ','ภาษาอังกฤษ'];
+    return { scores:o.sc.map(function(v, i){ return { subject:names[i], score:v, full:30, stats:pst(v, o.mean[i], o.sd[i], o.n, o.min[i], o.max[i]) }; }),
+      total:o.total, totalFull:150, rank:o.rank, rankOf:o.n, top10:o.rank <= 10, totalStats:pst(o.total, o.tm[0], o.tm[1], o.n, o.tm[2], o.tm[3]) };
+  }
   var PREVIEW = {
     DEMO1: { ok:true, demo:true, appId:'DEMO1', name:'เด็กหญิงตัวอย่าง ข้อมูลจำลอง', idMasked:'x-xxxx-xxxxx-xx-x', grade:'ป.6', groupCode:'P',
       group:'ลองสนามสอบเข้า ม.1', school:'โรงเรียนตัวอย่าง', submissionId:'ตัวอย่าง',
       payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
       seatsPublished:true, seat:{ seatNo:'P0105', room:'531', building:'อาคาร 5' },
-      resultsPublished:true, result:{ scores:previewScores([24,27,25,22,26]), total:124, totalFull:150, rank:4, top10:true },
+      resultsPublished:true, result:previewResult({ n:128, sc:[25,27,25,22,25], mean:[19.4,17.8,18.6,18.9,16.2], sd:[3.6,4.9,4.1,3.8,5.2], min:[8,5,7,9,4], max:[29,30,29,28,30], total:124, tm:[90.9,15.8,41,137], rank:4 }),
       examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' },
     DEMO4: { ok:true, demo:true, appId:'DEMO4', name:'นายตัวอย่าง ข้อมูลจำลอง', idMasked:'x-xxxx-xxxxx-xx-x', grade:'ม.3', groupCode:'M',
       group:'ลองสนามสอบเข้า ม.4', school:'โรงเรียนตัวอย่าง', submissionId:'ตัวอย่าง',
       payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
       seatsPublished:true, seat:{ seatNo:'M0212', room:'542', building:'อาคาร 5' },
-      resultsPublished:true, result:{ scores:previewScores([18,15,20,21,17]), total:91, totalFull:150, rank:37, top10:false },
+      resultsPublished:true, result:previewResult({ n:74, sc:[18,15,20,21,17], mean:[17.2,14.1,16.8,18.5,15.9], sd:[3.9,5.1,4.4,3.7,4.8], min:[6,3,5,8,4], max:[28,27,29,29,28], total:91, tm:[82.5,16.4,38,131], rank:23 }),
       examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' }
   };
 
@@ -617,17 +672,7 @@
     }
     h += '</div><div class="block"><h3>ผลการสอบ</h3>';
     if (d.result) {
-      var R = d.result, hasFull = R.scores.some(function(s){ return s.full; });
-      var pct = R.totalFull && R.total !== '' && R.total != null ? Math.round(Number(R.total) / Number(R.totalFull) * 1000) / 10 : null;
-      h += '<div class="res-top"><div class="res-total"><small>คะแนนรวม</small><b>' + esc(R.total) + '</b>' + (R.totalFull ? '<span>/ ' + esc(R.totalFull) + '</span>' : '') +
-        (pct != null && !isNaN(pct) ? '<em>คิดเป็นร้อยละ ' + pct.toLocaleString('th-TH') + '</em>' : '') + '</div>' +
-        (R.rank ? '<div class="res-rank"><small>อันดับในสนามสอบ</small><b>' + esc(R.rank) + '</b>' + (R.top10 ? '<div><span class="top10">TOP 10 รับเกียรติบัตร</span></div>' : '') + '</div>' : '') + '</div>';
-      h += '<div class="sc' + (hasFull ? '' : ' nofull') + '">' + R.scores.map(function(s){
-        var w = s.full ? Math.max(0, Math.min(100, Number(s.score) / Number(s.full) * 100)) : null;
-        return '<div>' + esc(s.subject) + '</div>' + (hasFull ? '<div class="bar">' + (w != null && !isNaN(w) ? '<i data-w="' + w + '"></i>' : '') + '</div>' : '') +
-          '<div class="v">' + esc(s.score) + (s.full ? ' <small>/ ' + esc(s.full) + '</small>' : '') + '</div>';
-      }).join('') + '</div>' +
-        '<p><button type="button" class="btn btn-main" id="printResult">ดูและพิมพ์ใบแจ้งผลการสอบ</button></p>';
+      h += resultHtml(d.result);
     } else {
       h += '<p class="hint">' + (d.resultsPublished ? 'ไม่พบผลสอบ (อาจขาดสอบ) กรุณาติดต่อเจ้าหน้าที่' : 'ยังไม่ประกาศผลสอบ') + '</p>';
     }
@@ -637,9 +682,65 @@
     if ($('printCard')) $('printCard').onclick = printCard;
     if ($('printResult')) $('printResult').onclick = printResult;
     requestAnimationFrame(function(){ requestAnimationFrame(function(){
-      document.querySelectorAll('#dash .bar i').forEach(function(i){ i.style.width = i.getAttribute('data-w') + '%'; });
+      document.querySelectorAll('#dash .strack i').forEach(function(i){ i.style.width = i.getAttribute('data-w') + '%'; });
+      document.querySelectorAll('#dash .pos-me').forEach(function(m){ m.style.left = m.getAttribute('data-left') + '%'; });
     }); });
     $('login').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  // ---------- ผลการสอบ + ค่าสถิติ ----------
+  function num(v){ return v === '' || v == null || isNaN(Number(v)) ? null : Number(v); }
+  function f1(v){ v = num(v); return v == null ? '-' : v.toLocaleString('th-TH', { maximumFractionDigits:1 }); }
+  function pctOf(a, b){ a = num(a); b = num(b); return a == null || !b ? null : a / b * 100; }
+  function clamp(x){ return Math.max(0, Math.min(100, x)); }
+  function tLabel(t){ if (t == null) return ''; return t >= 65 ? 'สูงกว่าค่าเฉลี่ยมาก' : t >= 55 ? 'สูงกว่าค่าเฉลี่ย' : t >= 45 ? 'ใกล้เคียงค่าเฉลี่ย' : t >= 35 ? 'ต่ำกว่าค่าเฉลี่ย' : 'ต่ำกว่าค่าเฉลี่ยมาก'; }
+  function bestWorst(R){
+    var list = R.scores.filter(function(s){ return s.stats && s.stats.t != null; });
+    if (list.length < 2) return {};
+    var b = list[0], w = list[0];
+    list.forEach(function(s){ if (s.stats.t > b.stats.t) b = s; if (s.stats.t < w.stats.t) w = s; });
+    return b === w ? {} : { best:b.subject, low:w.subject };
+  }
+  function resultHtml(R){
+    var TS = R.totalStats, total = num(R.total), pct = pctOf(R.total, R.totalFull);
+    var hasStats = !!TS || R.scores.some(function(s){ return s.stats; }), bw = bestWorst(R);
+    var h = '<div class="res-grid">' +
+      '<div class="rc main"><small>คะแนนรวม</small><b>' + esc(R.total) + (R.totalFull ? '<span>/ ' + esc(R.totalFull) + '</span>' : '') + '</b>' +
+        (pct != null ? '<em>คิดเป็นร้อยละ ' + f1(pct) + '</em>' : '') + '</div>' +
+      (R.rank ? '<div class="rc"><small>อันดับในสนามสอบ</small><b>' + esc(R.rank) + (R.rankOf ? '<span>จาก ' + esc(R.rankOf) + '</span>' : '') + '</b>' +
+        (R.top10 ? '<span class="top10">TOP 10 รับเกียรติบัตร</span>' : (R.rankOf ? '<em>จากผู้เข้าสอบ ' + esc(R.rankOf) + ' คน</em>' : '')) + '</div>' : '') +
+      (TS && TS.t != null ? '<div class="rc"><small>T-score คะแนนรวม</small><b>' + f1(TS.t) + '</b><em>' + tLabel(TS.t) + '</em></div>' : '') +
+      (TS ? '<div class="rc"><small>เปอร์เซ็นไทล์ (PR)</small><b>' + f1(TS.pr) + '</b><em>ทำได้ดีกว่าผู้เข้าสอบประมาณ ' + Math.round(TS.pr) + ' จาก 100 คน</em></div>' : '') +
+      '</div>';
+    if (TS && total != null) {
+      var lo = TS.min, hi = TS.max, span = (hi - lo) || 1, pMe = clamp((total - lo) / span * 100), pMean = clamp((TS.mean - lo) / span * 100), gap = total - TS.mean;
+      h += '<div class="pos"><div class="pos-h">ตำแหน่งคะแนนรวมของคุณในสนามสอบ</div>' +
+        '<div class="pos-track"><span class="pos-mean' + (Math.abs(pMe - pMean) < 18 ? ' low' : '') + '" style="left:' + pMean + '%"><em>ค่าเฉลี่ย ' + f1(TS.mean) + '</em></span>' +
+        '<span class="pos-me" data-left="' + pMe + '" style="left:' + pMean + '%"><em>คุณ ' + f1(total) + '</em></span></div>' +
+        '<div class="pos-ends"><span>ต่ำสุด ' + f1(lo) + '</span><span>สูงสุด ' + f1(hi) + '</span></div>' +
+        '<div class="pos-meta"><span>ผู้เข้าสอบ <b>' + esc(TS.n) + '</b> คน</span><span>ค่าเฉลี่ย <b>' + f1(TS.mean) + '</b></span><span>SD <b>' + f1(TS.sd) + '</b></span>' +
+        '<span>ห่างจากค่าเฉลี่ย <b>' + (gap >= 0 ? '+' : '−') + f1(Math.abs(gap)) + '</b> คะแนน</span></div></div>';
+    }
+    h += '<div class="subj-h">ผลรายวิชา</div><div class="subj">' + R.scores.map(function(s){
+      var st = s.stats, sc = num(s.score), top = num(s.full) || (st ? st.max : null) || sc || 1;
+      var w = sc == null ? 0 : clamp(sc / top * 100), m = st ? clamp(st.mean / top * 100) : null;
+      var tag = s.subject === bw.best ? '<span class="stag best">จุดเด่น</span>' : s.subject === bw.low ? '<span class="stag low">ควรเสริม</span>' : '';
+      return '<div class="srow"><div class="sname">' + esc(s.subject) + tag + '</div>' +
+        '<div class="strack"><i data-w="' + w + '"></i>' + (m != null ? '<b style="left:' + m + '%"></b>' : '') + '</div>' +
+        '<div class="sval">' + esc(s.score) + (s.full ? '<small> / ' + esc(s.full) + '</small>' : '') + '</div>' +
+        '<div class="sstat">' + (st ? '<span>เฉลี่ย <b>' + f1(st.mean) + '</b></span>' + (st.t != null ? '<span>T <b>' + f1(st.t) + '</b></span>' : '') + '<span>PR <b>' + f1(st.pr) + '</b></span>' : '') + '</div></div>';
+    }).join('') + '</div>' +
+      (hasStats ? '<div class="legend"><span><i></i>คะแนนของคุณ</span><span><i class="m"></i>ค่าเฉลี่ยของสนามสอบ</span></div>' : '');
+    if (hasStats) h += '<div class="gloss"><div class="gloss-h">อ่านค่าเหล่านี้อย่างไร</div><dl>' +
+      '<div><dt><span>T</span>คะแนนมาตรฐาน T-score</dt><dd>ปรับคะแนนทุกวิชาให้เทียบกันได้ โดยค่าเฉลี่ยของสนามสอบเท่ากับ 50 เกิน 50 คือสูงกว่าค่าเฉลี่ย ทุก 10 คะแนนเท่ากับห่างค่าเฉลี่ย 1 SD ใช้ดูว่าถนัดวิชาไหนที่สุด</dd></div>' +
+      '<div><dt><span>PR</span>เปอร์เซ็นไทล์</dt><dd>บอกว่าทำคะแนนได้ดีกว่าผู้เข้าสอบกี่เปอร์เซ็นต์ เช่น PR 85 หมายถึงดีกว่าผู้เข้าสอบประมาณ 85 จาก 100 คน</dd></div>' +
+      '<div><dt><span>X̄</span>ค่าเฉลี่ย</dt><dd>คะแนนเฉลี่ยของผู้เข้าสอบทุกคนในสนามเดียวกัน ใช้ดูว่าเราอยู่เหนือหรือต่ำกว่าระดับทั่วไป</dd></div>' +
+      '<div><dt><span>SD</span>ส่วนเบี่ยงเบนมาตรฐาน</dt><dd>บอกว่าคะแนนของผู้เข้าสอบห่างกันมากแค่ไหน SD มากคือคะแนนกระจายกว้าง SD น้อยคือคะแนนใกล้เคียงกัน</dd></div>' +
+      '<div><dt><span>#</span>อันดับ</dt><dd>ลำดับคะแนนรวมในสนามสอบ คะแนนเท่ากันได้อันดับเดียวกัน</dd></div>' +
+      '<div><dt><span>+</span>จุดเด่น / ควรเสริม</dt><dd>วิชาที่มี T-score สูงสุดและต่ำสุดของคุณ ใช้วางแผนทบทวนก่อนสอบจริง</dd></div>' +
+      '</dl><p>ทุกค่าคำนวณจากผู้เข้าสอบในสนามเดียวกันเท่านั้น สนาม ม.1 และสนาม ม.4 แยกกัน</p></div>';
+    h += '<p><button type="button" class="btn btn-main" id="printResult">ดูและพิมพ์ใบแจ้งผลการสอบ</button></p>';
+    return h;
   }
 
   function printCard(){
@@ -659,7 +760,8 @@
   }
   function printResult(){
     var d = me; if (!d || !d.result) return;
-    var R = d.result, hasFull = R.scores.some(function(s){ return s.full; });
+    var R = d.result, hasFull = R.scores.some(function(s){ return s.full; }), TS = R.totalStats || {};
+    var hasStats = !!R.totalStats || R.scores.some(function(s){ return s.stats; });
     var today = new Date().toLocaleDateString('th-TH', { day:'numeric', month:'long', year:'numeric' });
     $('examCard').innerHTML = '<div class="ec-bar"><button type="button" class="btn btn-main" id="ecPrint">พิมพ์ / บันทึกเป็น PDF</button><button type="button" class="btn btn-soft" id="ecClose">ปิด</button></div>' +
       '<div class="ec" role="dialog" aria-label="ใบแจ้งผลการสอบ"><div class="ec-head"><img src="assets/emblem-purple.png" alt=""><div><h2>ใบแจ้งผลการสอบ</h2><div>PROT PRE TEST 2570 โรงเรียนพรตพิทยพยัต</div></div></div>' +
@@ -667,10 +769,14 @@
       '<dt>สนามสอบ</dt><dd>' + esc(d.group) + ' (ชั้น ' + esc(d.grade) + ')</dd>' +
       (d.seat ? '<dt>เลขที่นั่งสอบ</dt><dd>' + esc(d.seat.seatNo) + ' ห้อง ' + esc(d.seat.room) + '</dd>' : '') +
       '<dt>วันสอบ</dt><dd>' + esc(d.examDate) + '</dd></dl>' +
-      '<table class="ec-tb"><thead><tr><th>วิชา</th><th class="r">คะแนนที่ได้</th>' + (hasFull ? '<th class="r">คะแนนเต็ม</th>' : '') + '</tr></thead><tbody>' +
-      R.scores.map(function(s){ return '<tr><td>' + esc(s.subject) + '</td><td class="r">' + esc(s.score) + '</td>' + (hasFull ? '<td class="r">' + esc(s.full || '') + '</td>' : '') + '</tr>'; }).join('') +
-      '<tr class="sum"><td>คะแนนรวม</td><td class="r">' + esc(R.total) + '</td>' + (hasFull ? '<td class="r">' + esc(R.totalFull || '') + '</td>' : '') + '</tr></tbody></table>' +
-      (R.rank ? '<p class="ec-rank">อันดับในสนามสอบ <b>' + esc(R.rank) + '</b>' + (R.top10 ? ' TOP 10 รับเกียรติบัตร' : '') + '</p>' : '') +
+      '<table class="ec-tb"><thead><tr><th>วิชา</th><th class="r">คะแนน</th>' + (hasFull ? '<th class="r">เต็ม</th>' : '') +
+        (hasStats ? '<th class="r">ค่าเฉลี่ย</th><th class="r">T-score</th><th class="r">PR</th>' : '') + '</tr></thead><tbody>' +
+      R.scores.map(function(s){ var st = s.stats || {}; return '<tr><td>' + esc(s.subject) + '</td><td class="r">' + esc(s.score) + '</td>' + (hasFull ? '<td class="r">' + esc(s.full || '') + '</td>' : '') +
+        (hasStats ? '<td class="r">' + f1(st.mean) + '</td><td class="r">' + f1(st.t) + '</td><td class="r">' + f1(st.pr) + '</td>' : '') + '</tr>'; }).join('') +
+      '<tr class="sum"><td>คะแนนรวม</td><td class="r">' + esc(R.total) + '</td>' + (hasFull ? '<td class="r">' + esc(R.totalFull || '') + '</td>' : '') +
+        (hasStats ? '<td class="r">' + f1(TS.mean) + '</td><td class="r">' + f1(TS.t) + '</td><td class="r">' + f1(TS.pr) + '</td>' : '') + '</tr></tbody></table>' +
+      (R.rank ? '<p class="ec-rank">อันดับในสนามสอบ <b>' + esc(R.rank) + '</b>' + (R.rankOf ? ' จาก ' + esc(R.rankOf) + ' คน' : '') + (R.top10 ? ' TOP 10 รับเกียรติบัตร' : '') + '</p>' : '') +
+      (hasStats ? '<div class="ec-note">T-score: ค่าเฉลี่ยของสนามสอบเท่ากับ 50 เกิน 50 คือสูงกว่าค่าเฉลี่ย · PR (เปอร์เซ็นไทล์): ทำคะแนนได้ดีกว่าผู้เข้าสอบประมาณกี่คนจาก 100 คน · คำนวณจากผู้เข้าสอบสนามเดียวกัน' + (TS ? ' จำนวน ' + esc(TS.n) + ' คน' : '') + '</div>' : '') +
       (d.demo ? '<div class="ec-demo">ตัวอย่างข้อมูลจำลอง ไม่ใช่ผลสอบจริง</div>' : '') +
       '<div class="ec-rules">พิมพ์จากระบบรับสมัครสอบ PROT PRE TEST 2570 เมื่อวันที่ ' + esc(today) + ' ทีมงานวัดผลและประเมินผล โรงเรียนพรตพิทยพยัต</div></div>';
     $('examCard').classList.add('open');

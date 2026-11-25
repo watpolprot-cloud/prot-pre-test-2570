@@ -124,6 +124,23 @@ t('results + rank', () => {
   r = G.route_({ action: 'login', id: ID1, phone: '0812345678' });
   assert.equal(r.result.total, 99); assert.equal(r.result.totalFull, 125); assert.equal(r.result.rank, 1); assert(r.result.top10); assert.equal(r.result.scores.length, 5);
 });
+t('statsOf_: T-score & percentile rank', () => {
+  const st = G.statsOf_([10, 20, 30, 40, 50], 40);
+  assert.equal(st.n, 5); assert.equal(st.mean, 30); assert.equal(st.sd, 15.81); assert.equal(st.t, 56.3); assert.equal(st.pr, 70);
+  assert.equal(st.max, 50); assert.equal(st.min, 10);
+  const tie = G.statsOf_([10, 20, 20, 30], 20); assert.equal(tie.pr, 50);
+  const blank = G.statsOf_([null, 12, null], 12); assert.equal(blank.n, 1); assert.equal(blank.t, null); assert.equal(blank.pr, 50);
+  assert.equal(G.statsOf_([1, 2], null), null);
+});
+t('login result includes field statistics', () => {
+  const r = G.route_({ action: 'login', id: ID1, phone: '0812345678' });
+  assert(r.result.totalStats, 'totalStats'); assert.equal(r.result.totalStats.n, 1); assert.equal(r.result.rankOf, 1);
+  assert(r.result.scores[0].stats); assert.equal(r.result.scores[0].stats.mean, 20);
+  setSetting('แสดงค่าสถิติในผลสอบ', false);
+  const r2 = G.route_({ action: 'login', id: ID1, phone: '0812345678' });
+  assert.equal(r2.result.totalStats, null); assert.equal(r2.result.scores[0].stats, null);
+  setSetting('แสดงค่าสถิติในผลสอบ', true);
+});
 t('rejected applicant can re-register & sees message', () => {
   const pay = sheet('การชำระเงิน'); const hd = pay.data[0];
   const row = pay.data.findIndex(r => r[0] === 'T700002');

@@ -229,32 +229,70 @@ function apiLogin_(rawId, rawPhone) {
   if (approved && res.seatsPublished && app['เลขที่นั่งสอบ']) {
     res.seat = { seatNo: app['เลขที่นั่งสอบ'], room: String(app['ห้องสอบ']), building: String(app['อาคาร/สถานที่']) };
   }
-  if (approved && res.resultsPublished) res.result = resultOf_(app['เลขที่สมัคร'], s);
+  if (approved && res.resultsPublished) res.result = resultOf_(app['เลขที่สมัคร'], s, app['กลุ่มสอบ']);
   return res;
 }
 
-function resultOf_(appId, s) {
+function resultOf_(appId, s, groupCode) {
   var values = getSheet_(SHEETS.RESULTS).getDataRange().getValues();
   var head = values[0].map(String);
   var row = values.slice(1).filter(function (r) { return r[0] === appId; })[0];
   if (!row) return null;
   var full = Number(s['คะแนนเต็มต่อวิชา']) || null;
   var totalCol = head.indexOf('คะแนนรวม'), rankCol = head.indexOf('อันดับในกลุ่มสอบ');
-  var scores = [];
-  for (var c = 1; c < head.length; c++) {
-    if (!head[c] || c === totalCol || c === rankCol) continue;
-    scores.push({ subject: head[c], score: row[c], full: full });
-  }
   var showRank = truthy_(s['แสดงอันดับในผลสอบ']);
+  var statKey = 'แสดงค่าสถิติในผลสอบ';
+  var showStats = (s[statKey] === undefined || s[statKey] === '') ? true : truthy_(s[statKey]);
+  // ผู้เข้าสอบสนามเดียวกัน (ใช้กลุ่มสอบจากแท็บผู้สมัคร เหมือน computeResults_)
+  var peers = [];
+  if (showStats || showRank) {
+    var groupOf = {};
+    readRows_(SHEETS.APPLICANTS).forEach(function (a) { groupOf[a['เลขที่สมัคร']] = a['กลุ่มสอบ']; });
+    var g = groupCode || groupOf[appId];
+    peers = values.slice(1).filter(function (r) { return r[0] && groupOf[r[0]] === g; });
+  }
+  var scores = [];
+  head.forEach(function (h, c) {
+    if (c === 0 || !h || c === totalCol || c === rankCol) return;
+    scores.push({ subject: h, score: row[c], full: full,
+      stats: showStats ? statsOf_(peers.map(function (r) { return num_(r[c]); }), num_(row[c])) : null });
+  });
+  var totalOf = function (r) { return totalCol >= 0 ? num_(r[totalCol]) : null; };
   var rank = rankCol >= 0 ? Number(row[rankCol]) || null : null;
+  var ranked = peers.filter(function (r) { return totalOf(r) !== null; }).length;
   return {
     scores: scores,
     total: totalCol >= 0 ? row[totalCol] : null,
     totalFull: full ? full * scores.length : null,
     rank: showRank ? rank : null,
-    top10: showRank && rank && rank <= 10
+    rankOf: showRank && ranked ? ranked : null,
+    top10: showRank && rank && rank <= 10,
+    totalStats: showStats ? statsOf_(peers.map(totalOf), totalOf(row)) : null
   };
 }
+
+/**
+ * ค่าสถิติของคะแนน x เทียบกับผู้เข้าสอบสนามเดียวกัน
+ * T = 50 + 10(x − ค่าเฉลี่ย)/S (S = ส่วนเบี่ยงเบนมาตรฐานแบบ n−1)
+ * PR = (จำนวนที่ได้ต่ำกว่า + ครึ่งหนึ่งของจำนวนที่ได้เท่ากัน) / N × 100
+ */
+function statsOf_(list, x) {
+  var v = list.filter(function (n) { return typeof n === 'number' && !isNaN(n); });
+  var n = v.length;
+  if (!n || x === null || x === undefined || isNaN(x)) return null;
+  var mean = v.reduce(function (a, b) { return a + b; }, 0) / n;
+  var sd = n > 1 ? Math.sqrt(v.reduce(function (a, b) { return a + (b - mean) * (b - mean); }, 0) / (n - 1)) : 0;
+  var below = 0, equal = 0;
+  v.forEach(function (b) { if (b < x) below++; else if (b === x) equal++; });
+  return {
+    n: n, mean: round_(mean, 2), sd: round_(sd, 2),
+    max: Math.max.apply(null, v), min: Math.min.apply(null, v),
+    t: sd > 0 ? round_(50 + 10 * (x - mean) / sd, 1) : null,
+    pr: round_((below + equal / 2) / n * 100, 1)
+  };
+}
+function num_(v) { if (v === '' || v === null || v === undefined) return null; var n = Number(v); return isNaN(n) ? null : n; }
+function round_(x, d) { var f = Math.pow(10, d); return Math.round(x * f) / f; }
 
 // ======================= รับใบสมัคร (เรียกจาก Index.html) =======================
 /**
@@ -1017,6 +1055,7 @@ function setup() {
     ['ประกาศผลสอบ', false, 'TRUE = ผู้สมัครเห็นคะแนน'],
     ['คะแนนเต็มต่อวิชา', '', 'รอยืนยัน ใส่เมื่อทราบจำนวนข้อ/คะแนนเต็ม (ว่าง = แสดงเฉพาะคะแนนที่ได้)'],
     ['แสดงอันดับในผลสอบ', false, 'TRUE = แสดงอันดับในกลุ่มสอบ และป้าย TOP 10'],
+    ['แสดงค่าสถิติในผลสอบ', true, 'TRUE = แสดง T-score เปอร์เซ็นไทล์ ค่าเฉลี่ย และ SD ของสนามสอบในผลสอบของผู้สมัคร'],
     ['ประกาศหน้าเว็บ', '', 'ข้อความแจ้งข่าวบนเว็บ GitHub Pages'],
     ['โมเดล Claude (ใช้เมื่อใส่ ANTHROPIC_API_KEY)', 'claude-opus-5-5', 'claude-opus-5-5 อ่านแม่นที่สุด · claude-sonnet-5-5 ราคาครึ่งหนึ่ง · claude-haiku-5-5 ถูกที่สุด'],
     ['ช่องทางติดต่อ', 'กลุ่มบริหารวิชาการ โทร. 0-2326-4050 หรือ 093-428-1595', 'จากโปสเตอร์ปี 2569 รอยืนยัน'],
