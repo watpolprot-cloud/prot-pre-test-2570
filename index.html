@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PRE PROT TEST 2570</title>
+<title>PROT PRE TEST 2570</title>
 <meta name="description" content="ลองสนามจริง ก่อนสอบจริง สนามสอบโรงเรียนพรตพิทยพยัต สำหรับนักเรียน ป.5–ป.6 และ ม.3 สอบวันอาทิตย์ที่ 24 มกราคม 2570">
 <meta name="theme-color" content="#24103f">
 <link rel="icon" href="assets/favicon.png">
@@ -223,6 +223,30 @@
   .dash .block{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
   .dash h3{margin:0 0 8px;color:var(--accent);font-size:18px}
   .top10{display:inline-block;margin-top:10px;background:var(--gold);color:var(--gold-ink);border-radius:999px;padding:4px 14px;font-weight:700}
+  .demo-note{background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;margin-bottom:14px}
+  .res-top{display:flex;flex-wrap:wrap;gap:12px;margin:4px 0 16px}
+  .res-total{background:var(--night);color:#fff;border-radius:16px;padding:14px 22px;min-width:210px}
+  .res-total small,.res-rank small{display:block;font-size:14px}
+  .res-total small{color:#cbbde6}
+  .res-total b{font:900 italic 50px/1.05 var(--f-mark);color:var(--gold)}
+  .res-total span{font:800 italic 22px/1 var(--f-mark);color:#e2d6f5;margin-left:6px}
+  .res-total em{display:block;font-style:normal;font-size:14px;color:#cbbde6;margin-top:4px}
+  .res-rank{border:1.5px solid var(--line);border-radius:16px;padding:14px 22px;min-width:190px}
+  .res-rank small{color:var(--muted)}
+  .res-rank b{font:900 italic 50px/1.05 var(--f-mark);color:var(--purple-2)}
+  .res-rank .top10{margin-top:6px}
+  .sc{display:grid;grid-template-columns:minmax(100px,auto) minmax(0,1fr) auto;gap:10px 14px;align-items:center}
+  .sc.nofull{grid-template-columns:1fr auto}
+  .sc .bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+  .sc .bar i{display:block;height:100%;width:0;border-radius:999px;background:var(--purple-2);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .sc .v{font:800 italic 19px/1 var(--f-mark);color:var(--accent);text-align:right;white-space:nowrap}
+  .sc .v small{font-size:13px;font-weight:700;color:var(--muted)}
+  .ec-tb{margin-top:14px;font-size:16px}
+  .ec-tb th,.ec-tb td{border-bottom:1px solid #d9d2e3;color:#1a1422;padding:7px 10px}
+  .ec-tb .sum td{font-weight:700;border-top:1.5px solid #3a1d5c}
+  .ec-rank{margin:12px 0 0;font-size:17px}
+  .ec-rank b{font:900 italic 26px/1 var(--f-mark);color:#3a1d5c}
+  .ec-demo{margin-top:12px;border:1.5px dashed #a35a00;color:#a35a00;border-radius:8px;padding:6px 10px;font-weight:700;text-align:center}
 
   /* ---------- รางวัล ---------- */
   .awards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -308,7 +332,7 @@
 <div class="demo" id="demoBar" hidden>ตัวอย่างหน้าเว็บ (ยังไม่ได้เชื่อมระบบสมัครจริง) ทดลองเข้าระบบด้วยเลข <b>1234567890121</b> และเบอร์ <b>0812345678</b></div>
 <header class="top"><div class="wrap">
   <img src="assets/emblem-gold.png" alt="ตราโรงเรียนพรตพิทยพยัต">
-  <span class="brand mark">PRE PROT <b>TEST</b> 2570</span>
+  <span class="brand mark">PROT PRE <b>TEST</b> 2570</span>
   <nav><a href="#schedule">กำหนดการ</a><a href="#apply">วิธีสมัคร</a><a href="#rules">ระเบียบการสอบ</a><a class="login" href="#login">เข้าสู่ระบบผู้สมัคร</a></nav>
 </div></header>
 
@@ -317,7 +341,7 @@
   <div class="wrap">
     <div>
       <span class="tag">ลองสนามจริง ก่อนสอบจริง</span>
-      <h1>PRE PROT<span class="l2">TEST<span class="yr">2570</span></span></h1>
+      <h1>PROT PRE<span class="l2">TEST<span class="yr">2570</span></span></h1>
       <p class="lead">สนามสอบจำลองสำหรับนักเรียน ป.5–ป.6 และ ม.3 ข้อสอบจาก<span class="nw">คณะกรรมการ</span>ของโรงเรียน <span class="nw">ห้องสอบจริง</span> <span class="nw">กติกาเหมือนวันสอบจริง</span></p>
       <div class="cta">
         <a class="btn btn-main applyLink" href="#apply">สมัครสอบออนไลน์</a>
@@ -402,7 +426,7 @@
 
   <section id="rules">
     <h2>ระเบียบการสอบ</h2>
-    <p class="sub">ตามระเบียบการสอบ PRE PROT TEST ปีที่ผ่านมา</p>
+    <p class="sub">ตามระเบียบการสอบของปีที่ผ่านมา</p>
     <div class="grid2">
       <div class="card"><h3>ข้อปฏิบัติ</h3>
         <ul class="rules">
@@ -474,7 +498,7 @@
 </div></footer>
 
 <div class="dock" id="dock" aria-hidden="true">
-  <div>PRE PROT TEST 2570<br><b>99 บาท</b> ต่อคน</div>
+  <div>PROT PRE TEST 2570<br><b>99 บาท</b> ต่อคน</div>
   <a class="btn btn-main applyLink" href="#apply" tabindex="-1">สมัครสอบ</a>
 </div>
 
@@ -509,7 +533,30 @@
     resultsPublished:true, result:{ scores:[{subject:'ภาษาไทย',score:20,full:null},{subject:'คณิตศาสตร์',score:18,full:null},{subject:'วิทยาศาสตร์',score:22,full:null},{subject:'สังคมศึกษาฯ',score:15,full:null},{subject:'ภาษาอังกฤษ',score:24,full:null}], total:99, totalFull:null, rank:4, top10:true },
     examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' };
 
+  // บัญชีจำลองสำหรับดูตัวอย่างการรายงานผลสอบ (ใช้ได้ทั้งเว็บจริงและโหมดสาธิต ไม่เรียกระบบรับสมัคร)
+  // เข้าระบบด้วยเลขที่สมัคร DEMO1 หรือ DEMO4 และรหัสผ่าน 0000000000
+  var PREVIEW_PHONE = '0000000000';
+  function previewScores(a){ var n = ['ภาษาไทย','คณิตศาสตร์','วิทยาศาสตร์','สังคมศึกษาฯ','ภาษาอังกฤษ']; return a.map(function(v, i){ return { subject:n[i], score:v, full:30 }; }); }
+  var PREVIEW = {
+    DEMO1: { ok:true, demo:true, appId:'DEMO1', name:'เด็กหญิงตัวอย่าง ข้อมูลจำลอง', idMasked:'x-xxxx-xxxxx-xx-x', grade:'ป.6', groupCode:'P',
+      group:'ลองสนามสอบเข้า ม.1', school:'โรงเรียนตัวอย่าง', submissionId:'ตัวอย่าง',
+      payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
+      seatsPublished:true, seat:{ seatNo:'P0105', room:'531', building:'อาคาร 5' },
+      resultsPublished:true, result:{ scores:previewScores([24,27,25,22,26]), total:124, totalFull:150, rank:4, top10:true },
+      examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' },
+    DEMO4: { ok:true, demo:true, appId:'DEMO4', name:'นายตัวอย่าง ข้อมูลจำลอง', idMasked:'x-xxxx-xxxxx-xx-x', grade:'ม.3', groupCode:'M',
+      group:'ลองสนามสอบเข้า ม.4', school:'โรงเรียนตัวอย่าง', submissionId:'ตัวอย่าง',
+      payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
+      seatsPublished:true, seat:{ seatNo:'M0212', room:'542', building:'อาคาร 5' },
+      resultsPublished:true, result:{ scores:previewScores([18,15,20,21,17]), total:91, totalFull:150, rank:37, top10:false },
+      examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' }
+  };
+
   function call(body){
+    if (body.action === 'login') {
+      var pid = String(body.id).replace(/[\s-]/g, '').toUpperCase();
+      if (PREVIEW[pid] && String(body.phone).replace(/\D/g, '') === PREVIEW_PHONE) return new Promise(function(res){ setTimeout(function(){ res(PREVIEW[pid]); }, 350); });
+    }
     if (DEMO) return new Promise(function(res){ setTimeout(function(){
       if (body.action === 'info') return res(DEMO_INFO);
       if (body.action === 'login') {
@@ -554,7 +601,7 @@
   function render(d){
     me = d;
     var cls = d.payment.state === 'ok' ? 'b-ok' : d.payment.state === 'rejected' ? 'b-err' : 'b-wait';
-    var h = '<div class="who"><div><div class="hint">เลขที่สมัคร ' + esc(d.appId) + '</div><div class="name">' + esc(d.name) + '</div></div>' +
+    var h = (d.demo ? '<div class="demo-note">ข้อมูลจำลองสำหรับดูตัวอย่างการรายงานผล ไม่ใช่ผู้สมัครจริง</div>' : '') + '<div class="who"><div><div class="hint">เลขที่สมัคร ' + esc(d.appId) + '</div><div class="name">' + esc(d.name) + '</div></div>' +
       '<button type="button" class="btn btn-soft out" id="logout">ออกจากระบบ</button></div>' +
       '<dl class="kv"><dt>เลขประจำตัวประชาชน</dt><dd>' + esc(d.idMasked) + '</dd><dt>ชั้น</dt><dd>' + esc(d.grade) + ' · ' + esc(d.group) + '</dd>' +
       '<dt>โรงเรียนปัจจุบัน</dt><dd>' + esc(d.school) + '</dd></dl>' +
@@ -568,13 +615,19 @@
     } else {
       h += '<p class="hint">' + (d.payment.state !== 'ok' ? 'จะแสดงเมื่อยืนยันการชำระเงินแล้ว' : 'ยังไม่ประกาศเลขที่นั่งสอบ') + '</p>';
     }
-    h += '</div><div class="block"><h3>ผลสอบ</h3>';
+    h += '</div><div class="block"><h3>ผลการสอบ</h3>';
     if (d.result) {
-      h += '<table><thead><tr><th>วิชา</th><th class="r">คะแนน</th></tr></thead><tbody>' + d.result.scores.map(function(s){
-        return '<tr><td>' + esc(s.subject) + '</td><td class="r">' + esc(s.score) + (s.full ? ' / ' + esc(s.full) : '') + '</td></tr>'; }).join('') +
-        '<tr><td><strong>คะแนนรวม</strong></td><td class="r">' + esc(d.result.total) + (d.result.totalFull ? ' / ' + esc(d.result.totalFull) : '') + '</td></tr>' +
-        (d.result.rank ? '<tr><td>อันดับในสนามสอบ</td><td class="r">' + esc(d.result.rank) + '</td></tr>' : '') + '</tbody></table>' +
-        (d.result.top10 ? '<span class="top10">TOP 10 รับเกียรติบัตร</span>' : '');
+      var R = d.result, hasFull = R.scores.some(function(s){ return s.full; });
+      var pct = R.totalFull && R.total !== '' && R.total != null ? Math.round(Number(R.total) / Number(R.totalFull) * 1000) / 10 : null;
+      h += '<div class="res-top"><div class="res-total"><small>คะแนนรวม</small><b>' + esc(R.total) + '</b>' + (R.totalFull ? '<span>/ ' + esc(R.totalFull) + '</span>' : '') +
+        (pct != null && !isNaN(pct) ? '<em>คิดเป็นร้อยละ ' + pct.toLocaleString('th-TH') + '</em>' : '') + '</div>' +
+        (R.rank ? '<div class="res-rank"><small>อันดับในสนามสอบ</small><b>' + esc(R.rank) + '</b>' + (R.top10 ? '<div><span class="top10">TOP 10 รับเกียรติบัตร</span></div>' : '') + '</div>' : '') + '</div>';
+      h += '<div class="sc' + (hasFull ? '' : ' nofull') + '">' + R.scores.map(function(s){
+        var w = s.full ? Math.max(0, Math.min(100, Number(s.score) / Number(s.full) * 100)) : null;
+        return '<div>' + esc(s.subject) + '</div>' + (hasFull ? '<div class="bar">' + (w != null && !isNaN(w) ? '<i data-w="' + w + '"></i>' : '') + '</div>' : '') +
+          '<div class="v">' + esc(s.score) + (s.full ? ' <small>/ ' + esc(s.full) + '</small>' : '') + '</div>';
+      }).join('') + '</div>' +
+        '<p><button type="button" class="btn btn-main" id="printResult">ดูและพิมพ์ใบแจ้งผลการสอบ</button></p>';
     } else {
       h += '<p class="hint">' + (d.resultsPublished ? 'ไม่พบผลสอบ (อาจขาดสอบ) กรุณาติดต่อเจ้าหน้าที่' : 'ยังไม่ประกาศผลสอบ') + '</p>';
     }
@@ -582,21 +635,47 @@
     $('dash').innerHTML = h; $('dash').style.display = 'block'; document.querySelector('.login-wrap').classList.add('in');
     $('logout').onclick = function(){ me = null; $('dash').style.display = 'none'; $('dash').innerHTML = ''; document.querySelector('.login-wrap').classList.remove('in'); $('lkForm').reset(); $('lkId').focus(); };
     if ($('printCard')) $('printCard').onclick = printCard;
+    if ($('printResult')) $('printResult').onclick = printResult;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      document.querySelectorAll('#dash .bar i').forEach(function(i){ i.style.width = i.getAttribute('data-w') + '%'; });
+    }); });
     $('login').scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
   function printCard(){
     var d = me; if (!d || !d.seat) return;
     $('examCard').innerHTML = '<div class="ec-bar"><button type="button" class="btn btn-main" id="ecPrint">พิมพ์ / บันทึกเป็น PDF</button><button type="button" class="btn btn-soft" id="ecClose">ปิด</button></div>' +
-      '<div class="ec" role="dialog" aria-label="บัตรประจำตัวผู้เข้าสอบ"><div class="ec-head"><img src="assets/emblem-purple.png" alt=""><div><h2>บัตรประจำตัวผู้เข้าสอบ</h2><div>PRE PROT TEST 2570 · โรงเรียนพรตพิทยพยัต</div></div></div>' +
+      '<div class="ec" role="dialog" aria-label="บัตรประจำตัวผู้เข้าสอบ"><div class="ec-head"><img src="assets/emblem-purple.png" alt=""><div><h2>บัตรประจำตัวผู้เข้าสอบ</h2><div>PROT PRE TEST 2570 โรงเรียนพรตพิทยพยัต</div></div></div>' +
       '<dl class="ec-grid"><dt>เลขที่นั่งสอบ</dt><dd class="ec-seat">' + esc(d.seat.seatNo) + '</dd>' +
       '<dt>ชื่อ-นามสกุล</dt><dd>' + esc(d.name) + '</dd><dt>เลขที่สมัคร</dt><dd>' + esc(d.appId) + '</dd>' +
       '<dt>สนามสอบ</dt><dd>' + esc(d.group) + '</dd><dt>ห้องสอบ</dt><dd>ห้อง ' + esc(d.seat.room) + ' ' + esc(d.seat.building) + '</dd>' +
       '<dt>วันสอบ</dt><dd>' + esc(d.examDate) + ' ณ ' + esc(d.place) + '</dd></dl>' +
-      '<div class="ec-rules">นำบัตรนี้และบัตรประจำตัวประชาชนมาในวันสอบ · มาสายเกิน 15 นาทีไม่มีสิทธิ์สอบในวิชานั้น · ห้ามนำอุปกรณ์สื่อสารเข้าห้องสอบ · ระบายคำตอบด้วยดินสอดำ 2B เท่านั้น</div></div>';
+      '<div class="ec-rules">นำบัตรนี้และบัตรประจำตัวประชาชนมาในวันสอบ · มาสายเกิน 15 นาทีไม่มีสิทธิ์สอบในวิชานั้น · ห้ามนำอุปกรณ์สื่อสารเข้าห้องสอบ · ระบายคำตอบด้วยดินสอดำ 2B เท่านั้น</div>' +
+      (d.demo ? '<div class="ec-demo">ตัวอย่างข้อมูลจำลอง ไม่ใช่บัตรเข้าสอบจริง</div>' : '') + '</div>';
     $('examCard').classList.add('open');
     $('ecPrint').onclick = function(){ window.print(); };
     $('ecClose').onclick = function(){ $('examCard').classList.remove('open'); $('examCard').innerHTML = ''; $('printCard').focus(); };
+    $('ecPrint').focus();
+  }
+  function printResult(){
+    var d = me; if (!d || !d.result) return;
+    var R = d.result, hasFull = R.scores.some(function(s){ return s.full; });
+    var today = new Date().toLocaleDateString('th-TH', { day:'numeric', month:'long', year:'numeric' });
+    $('examCard').innerHTML = '<div class="ec-bar"><button type="button" class="btn btn-main" id="ecPrint">พิมพ์ / บันทึกเป็น PDF</button><button type="button" class="btn btn-soft" id="ecClose">ปิด</button></div>' +
+      '<div class="ec" role="dialog" aria-label="ใบแจ้งผลการสอบ"><div class="ec-head"><img src="assets/emblem-purple.png" alt=""><div><h2>ใบแจ้งผลการสอบ</h2><div>PROT PRE TEST 2570 โรงเรียนพรตพิทยพยัต</div></div></div>' +
+      '<dl class="ec-grid"><dt>ชื่อ-นามสกุล</dt><dd>' + esc(d.name) + '</dd><dt>เลขที่สมัคร</dt><dd>' + esc(d.appId) + '</dd>' +
+      '<dt>สนามสอบ</dt><dd>' + esc(d.group) + ' (ชั้น ' + esc(d.grade) + ')</dd>' +
+      (d.seat ? '<dt>เลขที่นั่งสอบ</dt><dd>' + esc(d.seat.seatNo) + ' ห้อง ' + esc(d.seat.room) + '</dd>' : '') +
+      '<dt>วันสอบ</dt><dd>' + esc(d.examDate) + '</dd></dl>' +
+      '<table class="ec-tb"><thead><tr><th>วิชา</th><th class="r">คะแนนที่ได้</th>' + (hasFull ? '<th class="r">คะแนนเต็ม</th>' : '') + '</tr></thead><tbody>' +
+      R.scores.map(function(s){ return '<tr><td>' + esc(s.subject) + '</td><td class="r">' + esc(s.score) + '</td>' + (hasFull ? '<td class="r">' + esc(s.full || '') + '</td>' : '') + '</tr>'; }).join('') +
+      '<tr class="sum"><td>คะแนนรวม</td><td class="r">' + esc(R.total) + '</td>' + (hasFull ? '<td class="r">' + esc(R.totalFull || '') + '</td>' : '') + '</tr></tbody></table>' +
+      (R.rank ? '<p class="ec-rank">อันดับในสนามสอบ <b>' + esc(R.rank) + '</b>' + (R.top10 ? ' TOP 10 รับเกียรติบัตร' : '') + '</p>' : '') +
+      (d.demo ? '<div class="ec-demo">ตัวอย่างข้อมูลจำลอง ไม่ใช่ผลสอบจริง</div>' : '') +
+      '<div class="ec-rules">พิมพ์จากระบบรับสมัครสอบ PROT PRE TEST 2570 เมื่อวันที่ ' + esc(today) + ' ทีมงานวัดผลและประเมินผล โรงเรียนพรตพิทยพยัต</div></div>';
+    $('examCard').classList.add('open');
+    $('ecPrint').onclick = function(){ window.print(); };
+    $('ecClose').onclick = function(){ $('examCard').classList.remove('open'); $('examCard').innerHTML = ''; $('printResult').focus(); };
     $('ecPrint').focus();
   }
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && $('ecClose')) $('ecClose').click(); });

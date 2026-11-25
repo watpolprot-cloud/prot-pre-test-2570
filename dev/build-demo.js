@@ -2,7 +2,7 @@
 const fs = require('fs'), path = require('path');
 const src = fs.readFileSync(path.join(__dirname, '../apps-script/Index.html'), 'utf8');
 const cfg = {
-  eventName: 'PRE PROT TEST 2570', subtitle: 'ลองสนามจริง ก่อนสอบจริง',
+  eventName: 'PROT PRE TEST 2570', subtitle: 'ลองสนามจริง ก่อนสอบจริง',
   examDate: 'วันอาทิตย์ที่ 24 มกราคม 2570', place: 'โรงเรียนพรตพิทยพยัต',
   fee: 99, maxStudents: 5,
   groups: [

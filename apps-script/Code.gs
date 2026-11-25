@@ -1,11 +1,11 @@
 /**
- * ระบบรับสมัครสอบ PRE PROT TEST 2570 (ต้นแบบ v2)
+ * ระบบรับสมัครสอบ PROT PRE TEST 2570 (ต้นแบบ v2)
  * โรงเรียนพรตพิทยพยัต · ทีมงานวัดผลและประเมินผล
  *
  * ส่วนประกอบ
  *  - doGet()         เปิดหน้าใบสมัคร (Index.html) = ลิงก์/QR ที่ใส่บนโปสเตอร์
  *  - doGet(?api=info) และ doPost({action}) = API ให้เว็บ GitHub Pages (กำหนดการ / เข้าระบบดูที่นั่งสอบ ผลสอบ)
- *  - เมนู "Pre Prot Test" ใน Google Sheet = งานเจ้าหน้าที่ (ยืนยันการชำระเงิน กระทบยอด จัดที่นั่ง คิดคะแนน)
+ *  - เมนู "Prot Pre Test" ใน Google Sheet = งานเจ้าหน้าที่ (ยืนยันการชำระเงิน กระทบยอด จัดที่นั่ง คิดคะแนน)
  *
  * การตรวจสลิป (ไม่มีค่าใช้จ่าย)
  *  1) กันสลิปซ้ำ: ลายนิ้วมือไฟล์ (SHA-256) + ข้อมูล QR + เลขอ้างอิงธุรกรรม
@@ -22,7 +22,7 @@ var VERSION = '2.0.0';
 
 // ======================= ค่าคงที่ของกิจกรรม =======================
 var CONFIG = {
-  EVENT_NAME: 'PRE PROT TEST 2570',
+  EVENT_NAME: 'PROT PRE TEST 2570',
   EVENT_SUBTITLE: 'ลองสนามจริง ก่อนสอบจริง',
   EXAM_DATE_TEXT: 'วันอาทิตย์ที่ 24 มกราคม 2570',
   EXAM_PLACE: 'โรงเรียนพรตพิทยพยัต',
@@ -795,7 +795,7 @@ function menuTestClaude() {
 
 // ======================= เมนูเจ้าหน้าที่ =======================
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu('Pre Prot Test')
+  SpreadsheetApp.getUi().createMenu('Prot Pre Test')
     .addItem('ยืนยันการชำระเงิน (แถวที่เลือก)', 'menuConfirmPayment')
     .addItem('ไม่ผ่าน (แถวที่เลือก)', 'menuRejectPayment')
     .addItem('ตรวจสลิปอัตโนมัติอีกครั้ง (แถวที่เลือก)', 'menuRecheckSlip')
