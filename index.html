@@ -4,114 +4,204 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PRE PROT TEST 2570</title>
-<meta name="description" content="ลองสนามจริง ก่อนสอบจริง · สนามสอบโรงเรียนพรตพิทยพยัต สำหรับนักเรียน ป.5–ป.6 และ ม.3">
+<meta name="description" content="ลองสนามจริง ก่อนสอบจริง สนามสอบโรงเรียนพรตพิทยพยัต สำหรับนักเรียน ป.5–ป.6 และ ม.3 สอบวันอาทิตย์ที่ 24 มกราคม 2570">
+<meta name="theme-color" content="#24103f">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Libre+Franklin:ital,wght@1,700;1,800;1,900&display=swap" rel="stylesheet">
 <style>
+  /* ---------- โทเค็นสี/ตัวอักษร ----------
+     ม่วงราตรี #24103f · ม่วงโรงเรียน #5b2d8e · เหลืองดาวเรือง #f7b500
+     ดินสอ 2B #26232d · หมึกกระดาษคำตอบ #d9ccf0 · พื้นกระดาษ #f7f4fc */
   :root{
-    --purple:#3a1d5c; --purple-2:#5b2d8e; --orange:#e87700; --gold:#f6a623; --gold-ink:#3a1d5c;
-    --bg:#f7f4ee; --surface:#ffffff; --surface-2:#f1ebf8; --ink:#231a2e; --muted:#6b6275; --line:#e4dcef;
+    --night:#24103f; --purple:#3a1d5c; --purple-2:#5b2d8e; --gold:#f7b500; --gold-2:#ffd25a; --gold-ink:#24103f; --orange:#e87700;
+    --graphite:#26232d; --sheet-ink:#d9ccf0; --sheet-ink-2:#b9a5df;
+    --bg:#f7f4fc; --surface:#ffffff; --surface-2:#efe8f9; --ink:#231a2e; --muted:#665c72; --line:#e3d9f2;
     --accent:#5b2d8e; --ok:#1d7a46; --ok-soft:#e3f4ea; --warn:#a35a00; --warn-soft:#fff1dc; --err:#b3261e; --err-soft:#fdecea;
-    --shadow:0 6px 24px rgba(58,29,92,.10);
-    --f-head:Anuphan,"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif;
-    --f-body:Sarabun,"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+    --shadow:0 10px 30px -12px rgba(36,16,63,.35);
+    --f-thai:"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+    --f-mark:"Libre Franklin","IBM Plex Sans Thai","Franklin Gothic Heavy","Arial Black",sans-serif;
     color-scheme:light;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#141019; --surface:#1d1727; --surface-2:#2a2138; --ink:#eee8f6; --muted:#b4aac4; --line:#372c49;
-      --accent:#c3a6f2; --ok:#7fd3a4; --ok-soft:#15352a; --warn:#f2c46b; --warn-soft:#3a2b0e; --err:#f28a80; --err-soft:#3f1f24;
-      --shadow:0 6px 24px rgba(0,0,0,.35); color-scheme:dark;
+      --bg:#120c1a; --surface:#1c1527; --surface-2:#2a2138; --ink:#eee8f6; --muted:#b4aac4; --line:#372c49;
+      --accent:#c9b2f5; --ok:#7fd3a4; --ok-soft:#15352a; --warn:#f2c46b; --warn-soft:#3a2b0e; --err:#f28a80; --err-soft:#3f1f24;
+      --shadow:0 10px 30px -12px rgba(0,0,0,.6); color-scheme:dark;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#141019; --surface:#1d1727; --surface-2:#2a2138; --ink:#eee8f6; --muted:#b4aac4; --line:#372c49;
-    --accent:#c3a6f2; --ok:#7fd3a4; --ok-soft:#15352a; --warn:#f2c46b; --warn-soft:#3a2b0e; --err:#f28a80; --err-soft:#3f1f24;
-    --shadow:0 6px 24px rgba(0,0,0,.35); color-scheme:dark;
+    --bg:#120c1a; --surface:#1c1527; --surface-2:#2a2138; --ink:#eee8f6; --muted:#b4aac4; --line:#372c49;
+    --accent:#c9b2f5; --ok:#7fd3a4; --ok-soft:#15352a; --warn:#f2c46b; --warn-soft:#3a2b0e; --err:#f28a80; --err-soft:#3f1f24;
+    --shadow:0 10px 30px -12px rgba(0,0,0,.6); color-scheme:dark;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;font-family:var(--f-body);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden}
-  h1,h2,h3,.btn,nav a,.pill,.num{font-family:var(--f-head)}
+  body{margin:0;font-family:var(--f-thai);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.65;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--f-thai);line-height:1.3}
   a{color:var(--accent)}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+  :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .mark{font-family:var(--f-mark);font-style:italic;font-weight:800;letter-spacing:.5px}
+  .nw{white-space:nowrap}
+  p,li,.hint{text-wrap:pretty}
   .demo{background:var(--warn-soft);color:var(--warn);text-align:center;font-size:14px;padding:6px 16px}
-  header.top{position:sticky;top:0;z-index:20;background:rgba(58,29,92,.97);backdrop-filter:blur(6px)}
-  header.top .wrap{display:flex;align-items:center;gap:10px;height:58px}
+
+  /* ---------- แถบบน ---------- */
+  header.top{position:sticky;top:0;z-index:30;background:rgba(36,16,63,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(217,204,240,.12)}
+  header.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
   header.top img{height:38px}
-  header.top .brand{color:#fff;font-family:var(--f-head);font-weight:700;letter-spacing:.5px;white-space:nowrap}
+  header.top .brand{color:#fff;font-size:17px;white-space:nowrap}
+  header.top .brand b{color:var(--gold);font-weight:800}
   nav{margin-left:auto;display:flex;gap:2px}
-  nav a{color:#efe6fa;text-decoration:none;padding:6px 10px;border-radius:8px;font-size:15px;white-space:nowrap}
-  nav a:hover{background:rgba(255,255,255,.12)}
+  nav a{color:#ece3fa;text-decoration:none;padding:7px 11px;border-radius:9px;font-size:15px;font-weight:500;white-space:nowrap}
+  nav a:hover{background:rgba(255,255,255,.1)}
   nav a.login{background:var(--gold);color:var(--gold-ink);font-weight:700}
-  .hero{background:linear-gradient(135deg,#3a1d5c 0%,#5b2d8e 100%);color:#fff;position:relative;overflow:hidden;padding:48px 0 96px}
-  .hero:before{content:"";position:absolute;right:-140px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(246,166,35,.38),transparent 65%)}
-  .hero .crest-bg{position:absolute;right:3%;bottom:-70px;width:360px;max-width:60%;opacity:.12;pointer-events:none}
-  .hero .wrap{position:relative}
-  .pill{display:inline-block;background:var(--gold);color:var(--gold-ink);font-weight:700;border-radius:999px;padding:4px 16px}
-  .hero h1{font-size:clamp(46px,10vw,96px);line-height:.95;margin:14px 0 12px;font-weight:700;font-style:italic;letter-spacing:1px}
-  .hero h1 span{color:var(--gold)}
-  .hero p.lead{font-size:clamp(17px,2.4vw,20px);margin:0 0 24px;opacity:.95;max-width:640px}
-  .btn{display:inline-block;border:0;border-radius:12px;padding:13px 22px;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none;line-height:1.3}
-  .btn-main{background:linear-gradient(90deg,#e87700,#f6a623);color:#fff;box-shadow:0 6px 18px rgba(232,119,0,.35)}
-  .btn-line{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.65)}
+  nav a.login:hover{background:var(--gold-2)}
+
+  /* ---------- ปุ่ม ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:13px 22px;font:700 17px/1.3 var(--f-thai);cursor:pointer;text-decoration:none;transition:transform .15s ease, background-color .15s ease}
+  .btn:active{transform:translateY(1px)}
+  .btn-main{background:var(--gold);color:var(--gold-ink);box-shadow:0 8px 20px -8px rgba(247,181,0,.8)}
+  .btn-main:hover{background:var(--gold-2)}
+  .btn-line{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}
+  .btn-line:hover{border-color:#fff}
   .btn-soft{background:var(--surface-2);color:var(--accent)}
   .btn:disabled{opacity:.6;cursor:wait}
   .cta{display:flex;flex-wrap:wrap;gap:10px}
-  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-58px;position:relative;z-index:2}
-  .fact{background:var(--surface);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
-  .fact small{display:block;color:var(--muted)}
-  .fact strong{font-family:var(--f-head);color:var(--accent);font-size:21px;line-height:1.3;display:block}
-  .fact strong em{font-style:normal;color:var(--orange);font-size:28px}
-  section{padding:46px 0 6px;scroll-margin-top:60px}
-  section h2{font-size:28px;color:var(--accent);margin:0 0 4px}
-  section .sub{color:var(--muted);margin:0 0 20px}
-  .announce{display:none;background:var(--warn-soft);color:var(--ink);border-left:5px solid var(--orange);border-radius:12px;padding:12px 16px;margin-top:20px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .group{background:var(--surface);border-radius:18px;padding:22px;border:1.5px solid var(--line);display:flex;align-items:center;gap:18px}
-  .group .lv{font-family:var(--f-head);font-weight:700;font-size:40px;color:var(--accent);white-space:nowrap}
-  .group .to{font-family:var(--f-head);font-size:20px;color:var(--orange);font-weight:700}
-  .group .cnt{color:var(--muted);font-size:14px}
+
+  /* ---------- HERO: กระดาษคำตอบ ---------- */
+  .hero{background:var(--night);color:#fff;position:relative;overflow:hidden;padding:56px 0 120px}
+  .hero:before{content:"";position:absolute;inset:0;background:
+      radial-gradient(600px 420px at 88% 8%, rgba(247,181,0,.20), transparent 70%),
+      radial-gradient(700px 500px at 0% 100%, rgba(91,45,142,.55), transparent 70%);pointer-events:none}
+  .hero .crest-bg{position:absolute;left:-90px;bottom:-110px;width:380px;opacity:.07;pointer-events:none}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center}
+  .tag{display:inline-block;background:var(--gold);color:var(--gold-ink);font-weight:700;border-radius:999px;padding:4px 16px;font-size:15px}
+  .hero h1{margin:16px 0 14px;font-family:var(--f-mark);font-style:italic;font-weight:900;font-size:clamp(54px,9.6vw,118px);line-height:.88;letter-spacing:-1px}
+  .hero h1 .l2{display:block;color:var(--gold)}
+  .hero h1 .yr{display:inline-block;-webkit-text-stroke:2px #fff;color:transparent;margin-left:.12em}
+  .hero p.lead{font-size:clamp(17px,2.2vw,20px);margin:0 0 26px;color:#e6dcf6;max-width:34em}
+  .hero .who-line{margin-top:18px;color:#cbbde6;font-size:15px}
+
+  .sheet{background:#fff;color:var(--graphite);border-radius:10px;padding:18px 18px 14px;box-shadow:-12px 12px 0 -2px rgba(217,204,240,.28),0 30px 60px -20px rgba(0,0,0,.55);transform:rotate(2.2deg);position:relative}
+  .sheet-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-bottom:2px solid var(--sheet-ink);padding-bottom:10px;margin-bottom:10px}
+  .sheet-head strong{display:block;font-size:17px;color:var(--purple)}
+  .sheet-head span{font-size:13px;color:#7d6f93}
+  .sheet-id{display:flex;gap:4px}
+  .sheet-id i{font-style:normal;width:24px;height:30px;border:1.5px solid var(--sheet-ink-2);border-radius:4px;display:grid;place-items:center;font:800 italic 15px/1 var(--f-mark);color:var(--purple)}
+  .omr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:4px 22px}
+  .omr .row{display:flex;align-items:center;gap:8px}
+  .omr .q{width:20px;text-align:right;font:800 italic 13px/1 var(--f-mark);color:#8a7aa6}
+  .bub{position:relative;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--sheet-ink-2);background:#fff;color:#8a7aa6;font:500 12px/1 var(--f-thai);display:grid;place-items:center;cursor:pointer;padding:0}
+  .bub:hover{border-color:var(--purple-2)}
+  .bub:before{content:"";position:absolute;inset:2px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #4a4652 0%, #2a2731 45%, #1d1b22 100%);transform:scale(0);transition:transform .22s cubic-bezier(.3,1.4,.5,1)}
+  .bub[aria-pressed="true"]:before{transform:scale(1)}
+  .bub span{position:relative}
+  .bub[aria-pressed="true"] span{color:#fff;opacity:.0}
+  .sheet-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px dashed var(--sheet-ink);font-size:13px;color:#7d6f93}
+  .sheet-foot b{font:800 italic 15px/1 var(--f-mark);color:var(--purple)}
+
+  /* ---------- บัตรเข้าสอบ + นับถอยหลัง ---------- */
+  .ticket-wrap{position:relative;z-index:3;margin-top:-76px;filter:drop-shadow(0 18px 28px rgba(36,16,63,.22))}
+  .ticket{--cut:72%;display:grid;grid-template-columns:minmax(0,72fr) minmax(0,28fr);background:var(--surface);border-radius:18px;
+    -webkit-mask:radial-gradient(circle 13px at var(--cut) 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 13px at var(--cut) 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+            mask:radial-gradient(circle 13px at var(--cut) 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 13px at var(--cut) 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+  .t-main{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:20px 8px}
+  .t-main > div{padding:2px 16px;border-left:1px solid var(--line)}
+  .t-main > div:first-child{border-left:0}
+  .t-main small{display:block;color:var(--muted);font-size:14px}
+  .t-main strong{display:block;color:var(--accent);font-size:20px;line-height:1.35}
+  .t-main .big{font:900 italic 34px/1.05 var(--f-mark);color:var(--orange)}
+  .t-main .hint{font-size:14px}
+  #regState{display:inline-block;margin-top:2px;font-size:14px;font-weight:600;color:var(--muted)}
+  body.reg-open #regState{color:var(--ok)}
+  body.reg-open #regState:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:middle;animation:blink 1.6s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .t-stub{border-left:2px dashed var(--line);padding:18px 20px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,var(--surface),var(--surface-2))}
+  .t-stub small{color:var(--muted);font-size:14px}
+  .cd{display:flex;gap:10px;align-items:flex-end;margin-top:4px}
+  .cd div{text-align:center;min-width:0}
+  .cd b{display:block;font:900 italic 34px/1 var(--f-mark);color:var(--purple-2);font-variant-numeric:tabular-nums}
+  .cd .days b{color:var(--orange);font-size:44px}
+  .cd span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+  #cdDone{display:none;font-weight:700;color:var(--accent);font-size:18px}
+
+  /* ---------- เนื้อหา ---------- */
+  section{padding:64px 0 0;scroll-margin-top:64px}
+  section > h2{font-size:clamp(26px,3.4vw,32px);color:var(--accent);margin:0 0 6px}
+  section > .sub{color:var(--muted);margin:0 0 24px;max-width:46em}
+  .announce{display:none;background:var(--warn-soft);color:var(--ink);border-left:5px solid var(--orange);border-radius:12px;padding:12px 16px;margin-top:22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .field{position:relative;border-radius:20px;padding:26px 24px;overflow:hidden;background:var(--surface);border:1.5px solid var(--line)}
+  .field.p{background:var(--purple-2);border-color:var(--purple-2);color:#fff}
+  .field .lv{font:900 italic clamp(44px,6vw,64px)/1 var(--f-mark);letter-spacing:-1px}
+  .field.p .lv{color:var(--gold)}
+  .field.m .lv{color:var(--purple-2)}
+  .field .to{font-size:21px;font-weight:700;margin-top:10px}
+  .field.m .to{color:var(--accent)}
+  .field .cnt{font-size:15px;margin-top:2px;opacity:.85}
+  .field .ghost{position:absolute;right:-6px;bottom:-26px;font:900 italic 140px/1 var(--f-mark);opacity:.08;pointer-events:none}
   .tag-full{display:inline-block;background:var(--err-soft);color:var(--err);border-radius:999px;padding:0 10px;font-size:13px;font-weight:600}
+
   .timeline{list-style:none;margin:0;padding:0;position:relative}
-  .timeline:before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:3px}
-  .timeline li{position:relative;padding:0 0 18px 48px}
-  .timeline li:before{content:"";position:absolute;left:6px;top:6px;width:21px;height:21px;border-radius:50%;background:var(--surface);border:4px solid var(--purple-2)}
-  .timeline li.key:before{background:var(--orange);border-color:var(--orange)}
-  .timeline .d{font-family:var(--f-head);font-weight:700;color:var(--accent)}
+  .timeline:before{content:"";position:absolute;left:13px;top:10px;bottom:10px;width:2px;background:repeating-linear-gradient(var(--sheet-ink-2) 0 6px,transparent 6px 11px)}
+  .timeline li{position:relative;padding:0 0 22px 46px}
+  .timeline li:before{content:"";position:absolute;left:2px;top:4px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:2px solid var(--sheet-ink-2)}
+  .timeline li.key:before{background:radial-gradient(circle at 35% 30%, #4a4652, #1d1b22);border-color:var(--graphite);box-shadow:0 0 0 5px rgba(247,181,0,.35)}
+  .timeline .d{font-weight:700;color:var(--accent);font-size:17px}
+  .timeline li.key .d{color:var(--orange)}
   .timeline .n{color:var(--muted);font-size:15px}
-  .card{background:var(--surface);border-radius:18px;padding:20px;border:1.5px solid var(--line)}
+  .card{background:var(--surface);border-radius:18px;padding:22px;border:1.5px solid var(--line)}
   .card h3{margin:0 0 10px;color:var(--accent);font-size:19px}
   table{width:100%;border-collapse:collapse}
-  td,th{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
   th{color:var(--muted);font-weight:600;font-size:14px}
-  td.t{white-space:nowrap;font-family:var(--f-head);font-weight:600;color:var(--accent)}
+  td.t{white-space:nowrap;font-weight:700;color:var(--accent)}
   td.r,th.r{text-align:right}
-  td.r{font-family:var(--f-head);font-weight:700}
-  .subjects{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-  .subjects span{background:var(--surface-2);color:var(--accent);border-radius:999px;padding:4px 12px;font-weight:600;font-size:15px}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  .step{background:var(--surface);border-radius:16px;padding:18px;border:1.5px solid var(--line)}
-  .num{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;margin-bottom:6px}
+  td.r{font-weight:700}
+  .subjects{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .subjects span{background:var(--surface-2);color:var(--accent);border-radius:999px;padding:4px 13px;font-weight:600;font-size:15px}
+
+  .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;position:relative}
+  .steps:before{content:"";position:absolute;left:12.5%;right:12.5%;top:22px;height:2px;background:repeating-linear-gradient(90deg,var(--sheet-ink-2) 0 8px,transparent 8px 14px)}
+  .step{position:relative;text-align:center;padding:0 12px}
+  .num{position:relative;display:grid;place-items:center;width:46px;height:46px;margin:0 auto 12px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #4a4652, #1d1b22);color:#fff;font:900 italic 20px/1 var(--f-mark);box-shadow:0 0 0 6px var(--bg)}
   .step h3{margin:0 0 4px;font-size:18px;color:var(--accent)}
   .step p{margin:0;font-size:15px;color:var(--muted)}
-  .bank{margin-top:16px;background:var(--surface);border-radius:16px;padding:16px 18px;border:1.5px solid var(--line);display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
-  .bank .acc{font-family:var(--f-head);font-size:26px;font-weight:700;color:var(--accent);letter-spacing:1px}
-  .bank .go{margin-left:auto}
-  ul.rules{margin:0;padding-left:20px}
-  ul.rules li{margin:4px 0}
-  ul.rules b{color:var(--err)}
-  .equip{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:0;padding:0;list-style:none}
-  .equip li:before{content:"✓ ";color:var(--ok);font-weight:700}
-  .awards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .award{border-radius:18px;padding:20px;background:linear-gradient(90deg,#e87700,#f6a623);color:#fff}
-  .award strong{font-family:var(--f-head);font-size:34px;font-style:italic;display:block;line-height:1.1}
+  .bank{margin-top:28px;background:var(--night);color:#fff;border-radius:20px;padding:22px 24px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;position:relative;overflow:hidden}
+  .bank:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle, rgba(247,181,0,.25), transparent 70%);pointer-events:none}
+  .bank .hint{color:#cbbde6;font-size:14px}
+  .bank .acc{font:900 italic clamp(30px,4.4vw,42px)/1.1 var(--f-mark);color:var(--gold);letter-spacing:1px;margin:4px 0}
+  .bank .acc-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .copy{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:10px;padding:6px 12px;font:600 14px/1.2 var(--f-thai);cursor:pointer}
+  .copy:hover{background:rgba(255,255,255,.18)}
+  .copy.done{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+  .bank .go{margin-left:auto;position:relative;z-index:1}
   .note{font-size:14px;color:var(--muted)}
-  /* เข้าสู่ระบบ */
+
+  ul.rules{margin:0;padding-left:20px}
+  ul.rules li{margin:6px 0}
+  ul.rules b{color:var(--err)}
+  .prep-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .prep-count{font-size:14px;color:var(--muted)}
+  .prep-count b{font:900 italic 18px/1 var(--f-mark);color:var(--purple-2)}
+  .prep-bar{height:6px;border-radius:6px;background:var(--surface-2);margin:8px 0 12px;overflow:hidden}
+  .prep-bar i{display:block;height:100%;width:0;background:var(--gold);border-radius:6px;transition:width .3s ease}
+  .equip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0;padding:0;list-style:none}
+  .equip label{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;font-weight:500;margin:0;transition:border-color .15s, background-color .15s}
+  .equip input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:0;padding:0;border:1.5px solid var(--sheet-ink-2);border-radius:50%;background:#fff;position:relative;cursor:pointer}
+  .equip input:checked{background:radial-gradient(circle at 35% 30%, #4a4652, #1d1b22);border-color:var(--graphite)}
+  .equip label:has(input:checked){border-color:var(--sheet-ink-2);background:var(--surface-2)}
+  .equip label:has(input:checked) span{text-decoration:line-through;text-decoration-color:rgba(91,45,142,.45);color:var(--muted)}
+  .prep-done{display:none;margin-top:10px;font-weight:700;color:var(--ok)}
+
+  /* ---------- เข้าสู่ระบบ ---------- */
   .login-wrap{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:18px;align-items:start}
-  .panel{background:var(--surface);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+  .panel{background:var(--surface);border-radius:18px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--line)}
   label{display:block;font-weight:600;margin:0 0 4px}
   input{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;margin-bottom:12px;background:var(--surface);color:var(--ink)}
   input:focus{outline:none;border-color:var(--purple-2);box-shadow:0 0 0 3px rgba(91,45,142,.18)}
@@ -119,33 +209,51 @@
   .err{color:var(--err);margin-top:8px;min-height:1em}
   .dash{display:none}
   .login-wrap.in{grid-template-columns:minmax(0,1fr)} .login-wrap.in #lkForm,.login-wrap.in #lkInfo{display:none}
-  .infop h3{margin:0 0 10px;color:var(--accent);font-size:18px} .infop ul{margin:0;padding-left:20px} .infop li{margin:4px 0} .infop .lock{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--accent-soft, rgba(91,45,142,.08));font-size:14px}
+  .infop h3{margin:0 0 10px;color:var(--accent);font-size:18px} .infop ul{margin:0;padding-left:20px} .infop li{margin:4px 0} .infop .lock{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--surface-2);font-size:14px}
   .who{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-  .who .name{font-family:var(--f-head);font-size:23px;color:var(--accent);font-weight:700;line-height:1.3}
+  .who .name{font-size:23px;color:var(--accent);font-weight:700;line-height:1.3}
   .who .out{margin-left:auto}
   .badge{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:600;font-size:15px}
   .b-ok{background:var(--ok-soft);color:var(--ok)} .b-wait{background:var(--warn-soft);color:var(--warn)} .b-err{background:var(--err-soft);color:var(--err)}
   .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0 0}
   .kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:600}
-  .seat{margin-top:14px;background:linear-gradient(135deg,#3a1d5c,#5b2d8e);color:#fff;border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .seat{margin-top:14px;background:var(--night);color:#fff;border-radius:14px;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .seat small{display:block;opacity:.85}
-  .seat strong{font-family:var(--f-head);font-size:24px;color:var(--gold)}
+  .seat strong{font:900 italic 26px/1.2 var(--f-mark);color:var(--gold)}
   .dash .block{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
   .dash h3{margin:0 0 8px;color:var(--accent);font-size:18px}
-  .top10{display:inline-block;margin-top:10px;background:linear-gradient(90deg,#e87700,#f6a623);color:#fff;border-radius:999px;padding:4px 14px;font-weight:700}
-  footer{margin-top:56px;background:#3a1d5c;color:#e9def7;padding:26px 0;font-size:15px}
+  .top10{display:inline-block;margin-top:10px;background:var(--gold);color:var(--gold-ink);border-radius:999px;padding:4px 14px;font-weight:700}
+
+  /* ---------- รางวัล ---------- */
+  .awards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .award{border-radius:20px;padding:24px 26px;display:flex;align-items:center;gap:20px}
+  .award .rk{font:900 italic clamp(54px,7vw,80px)/.9 var(--f-mark);letter-spacing:-2px;white-space:nowrap}
+  .award .rk small{display:block;font-size:.32em;letter-spacing:1px;margin-bottom:4px}
+  .award p{margin:0;font-size:18px;font-weight:600;line-height:1.45}
+  .award.a1{background:var(--night);color:#fff} .award.a1 .rk{color:var(--gold)}
+  .award.a2{background:var(--gold);color:var(--gold-ink)} .award.a2 .rk{color:var(--purple)}
+
+  footer{margin-top:72px;background:var(--night);color:#e2d6f5;padding:28px 0 32px;font-size:15px}
   footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-  /* บัตรประจำตัวผู้เข้าสอบ: แสดงเป็นหน้าต่างบนจอ และพิมพ์เฉพาะตัวบัตร */
+
+  /* แถบสมัครติดล่างจอ (มือถือ เมื่อเปิดรับสมัคร) */
+  .dock{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:none;align-items:center;gap:12px;background:var(--night);color:#fff;border-radius:16px;padding:10px 10px 10px 16px;box-shadow:0 14px 30px -10px rgba(0,0,0,.5);transform:translateY(140%);visibility:hidden;transition:transform .3s ease,visibility 0s linear .3s}
+  .dock.show{transform:none;visibility:visible;transition:transform .3s ease,visibility 0s}
+  .dock div{font-size:14px;line-height:1.35}
+  .dock b{color:var(--gold)}
+  .dock .btn{margin-left:auto;padding:10px 16px;font-size:16px}
+
+  /* ---------- บัตรประจำตัวผู้เข้าสอบ (พิมพ์) ---------- */
   #examCard{display:none;position:fixed;inset:0;z-index:50;background:rgba(20,12,30,.62);overflow:auto;padding:24px 16px}
   #examCard.open{display:block}
   .ec-bar{max-width:640px;margin:0 auto 12px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
-  .ec{background:#fff;color:#1a1422;border:2px solid #3a1d5c;border-radius:16px;padding:22px;max-width:640px;margin:0 auto;font-family:var(--f-body)}
+  .ec{background:#fff;color:#1a1422;border:2px solid #3a1d5c;border-radius:16px;padding:22px;max-width:640px;margin:0 auto;font-family:var(--f-thai)}
   .ec-head{display:flex;gap:14px;align-items:center;border-bottom:1.5px solid #3a1d5c;padding-bottom:12px}
   .ec-head img{height:72px;width:auto}
-  .ec-head h2{margin:0;font-family:var(--f-head);color:#3a1d5c;font-size:24px}
+  .ec-head h2{margin:0;color:#3a1d5c;font-size:24px}
   .ec-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;margin:16px 0 0;font-size:16px}
   .ec-grid dt{color:#5c5466} .ec-grid dd{margin:0;font-weight:700}
-  .ec-seat{font-family:var(--f-head);font-size:34px;line-height:1.1;color:#3a1d5c}
+  .ec-seat{font:900 italic 36px/1.1 var(--f-mark);color:#3a1d5c}
   .ec-rules{margin-top:16px;font-size:14px;border-top:1px dashed #999;padding-top:10px;color:#333}
   @media print{
     body{background:#fff !important;color:#000}
@@ -155,46 +263,107 @@
     .ec{max-width:170mm;border-radius:6mm;padding:8mm}
     .ec-head img{height:22mm}
   }
-  @media (max-width:860px){ nav a:not(.login){display:none} .facts,.steps{grid-template-columns:1fr 1fr} .grid2,.awards,.login-wrap{grid-template-columns:1fr} }
-  @media (max-width:480px){ .facts,.steps{grid-template-columns:1fr} .group{flex-direction:column;align-items:flex-start;gap:4px} .seat{grid-template-columns:1fr 1fr} .equip{grid-template-columns:1fr} header.top .brand{font-size:15px} .bank .go{margin-left:0} }
+
+  @media (max-width:900px){
+    nav a:not(.login){display:none}
+    .hero{padding:40px 0 110px}
+    .hero .wrap{grid-template-columns:1fr;gap:34px}
+    .sheet{transform:rotate(1.2deg);max-width:520px}
+    .ticket{grid-template-columns:1fr;-webkit-mask:none;mask:none}
+    .t-main{grid-template-columns:1fr 1fr;row-gap:14px}
+    .t-main > div:nth-child(3){border-left:0}
+    .t-stub{border-left:0;border-top:2px dashed var(--line);border-radius:0 0 18px 18px}
+    .grid2,.fields,.awards,.login-wrap{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr;row-gap:26px}
+    .steps:before{display:none}
+    .dock{display:flex}
+    body{padding-bottom:0}
+  }
+  @media (max-width:520px){
+    header.top .brand{font-size:15px}
+    .omr{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}
+    .omr .row:nth-child(n+6){display:none}
+    .t-main{padding:16px 4px;row-gap:12px}
+    .t-main > div{padding:2px 12px}
+    .t-main strong{font-size:17px}
+    .t-main .big{font-size:28px}
+    .t-stub{padding:14px 16px}
+    .cd b{font-size:28px}
+    .cd .days b{font-size:36px}
+    .steps{grid-template-columns:1fr}
+    .step{text-align:left;display:grid;grid-template-columns:46px 1fr;column-gap:14px}
+    .step .num{grid-row:span 2;margin:0}
+    .equip{grid-template-columns:1fr}
+    .seat{grid-template-columns:1fr 1fr}
+    .bank .go{margin-left:0}
+    .award{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*:before,*:after{animation:none !important;transition:none !important}
+  }
 </style>
 </head>
 <body>
-<div class="demo" id="demoBar" hidden>ตัวอย่างหน้าเว็บ (ยังไม่ได้เชื่อมระบบสมัครจริง) · ทดลองเข้าระบบด้วยเลข <b>1234567890121</b> และเบอร์ <b>0812345678</b></div>
+<div class="demo" id="demoBar" hidden>ตัวอย่างหน้าเว็บ (ยังไม่ได้เชื่อมระบบสมัครจริง) ทดลองเข้าระบบด้วยเลข <b>1234567890121</b> และเบอร์ <b>0812345678</b></div>
 <header class="top"><div class="wrap">
   <img src="assets/emblem-gold.png" alt="ตราโรงเรียนพรตพิทยพยัต">
-  <span class="brand">PRE PROT TEST 2570</span>
+  <span class="brand mark">PRE PROT <b>TEST</b> 2570</span>
   <nav><a href="#schedule">กำหนดการ</a><a href="#apply">วิธีสมัคร</a><a href="#rules">ระเบียบการสอบ</a><a class="login" href="#login">เข้าสู่ระบบผู้สมัคร</a></nav>
 </div></header>
 
 <div class="hero">
   <img class="crest-bg" src="assets/emblem-gold.png" alt="">
   <div class="wrap">
-    <span class="pill">ลองสนามจริง ก่อนสอบจริง</span>
-    <h1>PRE PROT<br><span>TEST</span> 2570</h1>
-    <p class="lead">สร้างความมั่นใจ คุ้นชินสนามสอบ · ข้อสอบจากคณะกรรมการของโรงเรียน สนามสอบจริง ระบบการสอบจริง</p>
-    <div class="cta">
-      <a class="btn btn-main applyLink" href="#apply">สมัครสอบออนไลน์</a>
-      <a class="btn btn-line" href="#login">เข้าสู่ระบบผู้สมัคร</a>
+    <div>
+      <span class="tag">ลองสนามจริง ก่อนสอบจริง</span>
+      <h1>PRE PROT<span class="l2">TEST<span class="yr">2570</span></span></h1>
+      <p class="lead">สนามสอบจำลองสำหรับนักเรียน ป.5–ป.6 และ ม.3 ข้อสอบจาก<span class="nw">คณะกรรมการ</span>ของโรงเรียน <span class="nw">ห้องสอบจริง</span> <span class="nw">กติกาเหมือนวันสอบจริง</span></p>
+      <div class="cta">
+        <a class="btn btn-main applyLink" href="#apply">สมัครสอบออนไลน์</a>
+        <a class="btn btn-line" href="#login">เข้าสู่ระบบผู้สมัคร</a>
+      </div>
+    </div>
+    <div class="sheet" role="group" aria-label="กระดาษคำตอบตัวอย่าง ลองแตะวงกลมเพื่อระบายคำตอบ">
+      <div class="sheet-head">
+        <div><strong>กระดาษคำตอบ</strong><span>ระบายด้วยดินสอดำ 2B ให้เต็มวง</span></div>
+        <div class="sheet-id" aria-hidden="true"><i>2</i><i>5</i><i>7</i><i>0</i></div>
+      </div>
+      <div class="omr" id="omr"></div>
+      <div class="sheet-foot"><span id="omrHint">แตะวงกลมเพื่อลองระบายคำตอบ</span><span>ระบายแล้ว <b id="omrCount">0</b><span>/10</span></span></div>
     </div>
   </div>
 </div>
 
 <main class="wrap">
-  <div class="facts">
-    <div class="fact"><small>วันสอบ</small><strong>24 ม.ค. 2570</strong><div class="hint">วันอาทิตย์</div></div>
-    <div class="fact"><small>รับสมัคร</small><strong>มกราคม 2570</strong><div class="hint" id="regState">ออนไลน์</div></div>
-    <div class="fact"><small>ค่าสมัครสอบ</small><strong><em>99</em> บาท</strong><div class="hint">ต่อคน</div></div>
-    <div class="fact"><small>สถานที่สอบ</small><strong>โรงเรียนพรตพิทยพยัต</strong><div class="hint">ถ.หลวงพรต เขตลาดกระบัง</div></div>
+  <div class="ticket-wrap">
+    <div class="ticket">
+      <div class="t-main">
+        <div><small>วันสอบ</small><strong>24 ม.ค. 2570</strong><div class="hint">วันอาทิตย์ <span class="nw">เริ่มสอบ 08.30 น.</span></div></div>
+        <div><small>รับสมัคร</small><strong>มกราคม 2570</strong><span id="regState">ออนไลน์</span></div>
+        <div><small>ค่าสมัครสอบ</small><strong><span class="big">99</span> บาท</strong><div class="hint">ต่อคน</div></div>
+        <div><small>สถานที่สอบ</small><strong>โรงเรียน<span class="nw">พรตพิทยพยัต</span></strong><div class="hint"><span class="nw">ถ.หลวงพรต</span> <span class="nw">เขตลาดกระบัง</span></div></div>
+      </div>
+      <div class="t-stub" aria-live="off">
+        <small>นับถอยหลังสู่วันสอบ</small>
+        <div class="cd" id="cd">
+          <div class="days"><b id="cdD">--</b><span>วัน</span></div>
+          <div><b id="cdH">--</b><span>ชั่วโมง</span></div>
+          <div><b id="cdM">--</b><span>นาที</span></div>
+          <div><b id="cdS">--</b><span>วินาที</span></div>
+        </div>
+        <div id="cdDone"></div>
+      </div>
+    </div>
   </div>
   <div class="announce" id="announce"></div>
 
   <section>
     <h2>ใครสมัครได้</h2>
     <p class="sub">เลือกสนามตามระดับชั้นที่จะสอบเข้า</p>
-    <div class="grid2">
-      <div class="group"><div class="lv">ป.5–ป.6</div><div><div class="to">ลองสนามสอบเข้า ม.1</div><div class="cnt" data-g="P"></div></div></div>
-      <div class="group"><div class="lv">ม.3</div><div><div class="to">ลองสนามสอบเข้า ม.4</div><div class="cnt" data-g="M"></div></div></div>
+    <div class="fields">
+      <div class="field p"><span class="ghost" aria-hidden="true">ม.1</span><div class="lv">ป.5–ป.6</div><div class="to">ลองสนามสอบเข้า ม.1</div><div class="cnt" data-g="P"></div></div>
+      <div class="field m"><span class="ghost" aria-hidden="true">ม.4</span><div class="lv">ม.3</div><div class="to">ลองสนามสอบเข้า ม.4</div><div class="cnt" data-g="M"></div></div>
     </div>
   </section>
 
@@ -215,13 +384,17 @@
     <h2>วิธีสมัคร</h2>
     <p class="sub">สมัครพร้อมกันได้สูงสุด 5 คนต่อสลิป (เช่น พี่น้อง) โอนครั้งเดียวตามจำนวนคน</p>
     <div class="steps">
-      <div class="step"><span class="num">1</span><h3>โอนค่าสมัคร</h3><p>99 บาทต่อคน เข้าบัญชีโรงเรียนด้านล่าง</p></div>
+      <div class="step"><span class="num">1</span><h3>โอนค่าสมัคร</h3><p>99 บาทต่อคน เข้าบัญชีโรงเรียน<span class="nw">ด้านล่าง</span></p></div>
       <div class="step"><span class="num">2</span><h3>กรอกใบสมัคร</h3><p>ข้อมูลผู้ปกครองและผู้สมัคร</p></div>
-      <div class="step"><span class="num">3</span><h3>แนบสลิป</h3><p>ภาพสลิปต้นฉบับจากแอปธนาคาร เห็น QR Code ชัด</p></div>
-      <div class="step"><span class="num">4</span><h3>เข้าสู่ระบบ</h3><p>ด้วยเลขประจำตัวประชาชน + เบอร์โทรที่ใช้สมัคร</p></div>
+      <div class="step"><span class="num">3</span><h3>แนบสลิป</h3><p>ภาพสลิปต้นฉบับจากแอปธนาคาร <span class="nw">เห็น QR Code ชัด</span></p></div>
+      <div class="step"><span class="num">4</span><h3>เข้าสู่ระบบ</h3><p>ด้วยเลขประจำตัวประชาชน<br>และ<span class="nw">เบอร์โทร</span>ที่ใช้สมัคร</p></div>
     </div>
     <div class="bank">
-      <div><div class="hint">ธนาคารกรุงไทย สาขาเทคโนโลยีพระจอมเกล้าฯ ลาดกระบัง</div><div class="acc">693-0-53838-8</div><div><strong>เงินสวัสดิการโรงเรียนพรตพิทยพยัต</strong></div></div>
+      <div>
+        <div class="hint">ธนาคารกรุงไทย <span class="nw">สาขาเทคโนโลยีพระจอมเกล้าฯ</span> <span class="nw">ลาดกระบัง</span></div>
+        <div class="acc-row"><div class="acc" id="accNo">693-0-53838-8</div><button type="button" class="copy" id="copyAcc">คัดลอกเลขบัญชี</button></div>
+        <div><strong>เงินสวัสดิการโรงเรียน<span class="nw">พรตพิทยพยัต</span></strong></div>
+      </div>
       <a class="btn btn-main applyLink go" href="#apply">ไปที่ใบสมัคร</a>
     </div>
     <p class="note">ระบบตรวจสลิปซ้ำ เลขบัญชีผู้รับ และยอดเงินให้อัตโนมัติ การสมัครสมบูรณ์เมื่อสถานะเป็น "ยืนยันการชำระเงินแล้ว" ซึ่งเจ้าหน้าที่ตรวจกับรายการเงินเข้าบัญชีโรงเรียน</p>
@@ -233,18 +406,27 @@
     <div class="grid2">
       <div class="card"><h3>ข้อปฏิบัติ</h3>
         <ul class="rules">
-          <li>ไม่มีเลขที่นั่งสอบ <b>ไม่มีสิทธิ์สอบ</b></li>
-          <li>ไม่มีบัตรแสดงตน <b>ไม่มีสิทธิ์สอบ</b></li>
-          <li>มาสายเกิน 15 นาที <b>ไม่มีสิทธิ์สอบในวิชานั้น</b></li>
+          <li>ไม่มีเลขที่นั่งสอบ <b class="nw">ไม่มีสิทธิ์สอบ</b></li>
+          <li>ไม่มีบัตรแสดงตน <b class="nw">ไม่มีสิทธิ์สอบ</b></li>
+          <li>มาสายเกิน 15 นาที <b class="nw">ไม่มีสิทธิ์สอบในวิชานั้น</b></li>
           <li>ห้ามนำเครื่องมืออุปกรณ์สื่อสารเข้าห้องสอบ</li>
           <li>นำนาฬิกาเข้าห้องสอบได้ (นาฬิกาธรรมดาที่ใช้ดูเวลาเท่านั้น)</li>
           <li>ให้นั่งสอบจนหมดเวลา</li>
         </ul>
       </div>
-      <div class="card"><h3>อุปกรณ์เข้าห้องสอบ</h3>
-        <ul class="equip">
-          <li>ดินสอดำ 2B (ระบายคำตอบ)</li><li>กบเหลาดินสอ</li><li>ยางลบ</li><li>ปากกาสำหรับเซ็นชื่อ</li><li>บัตรประจำตัวประชาชน</li><li>นาฬิกา (แบบเข็ม)</li>
+      <div class="card">
+        <div class="prep-head"><h3 style="margin:0">อุปกรณ์เข้าห้องสอบ</h3><span class="prep-count">เตรียมแล้ว <b id="prepN">0</b> จาก <b id="prepT">6</b></span></div>
+        <div class="prep-bar" aria-hidden="true"><i id="prepBar"></i></div>
+        <ul class="equip" id="equip">
+          <li><label><input type="checkbox" value="pencil"><span>ดินสอดำ 2B <span class="nw">(ระบายคำตอบ)</span></span></label></li>
+          <li><label><input type="checkbox" value="sharpener"><span>กบเหลาดินสอ</span></label></li>
+          <li><label><input type="checkbox" value="eraser"><span>ยางลบ</span></label></li>
+          <li><label><input type="checkbox" value="pen"><span>ปากกาสำหรับเซ็นชื่อ</span></label></li>
+          <li><label><input type="checkbox" value="idcard"><span>บัตรประจำตัวประชาชน</span></label></li>
+          <li><label><input type="checkbox" value="watch"><span>นาฬิกา (แบบเข็ม)</span></label></li>
         </ul>
+        <div class="prep-done" id="prepDone">เตรียมอุปกรณ์ครบแล้ว พร้อมเข้าห้องสอบ</div>
+        <p class="hint" style="margin:10px 0 0">ติ๊กรายการที่เตรียมแล้วได้ เว็บจะจำไว้ในเครื่องนี้</p>
       </div>
     </div>
   </section>
@@ -277,18 +459,24 @@
 
   <section>
     <h2>รางวัลและสิทธิพิเศษ</h2>
+    <p class="sub">จัดอันดับแยกตามสนามสอบ</p>
     <div class="awards">
-      <div class="award"><strong>TOP 10</strong>รับเกียรติบัตร ผลการสอบยอดเยี่ยม</div>
-      <div class="award"><strong>TOP 5</strong>รับสิทธิพิเศษ ลดหย่อนค่าเทอม*</div>
+      <div class="award a1"><div class="rk mark"><small>TOP</small>10</div><p>รับเกียรติบัตร<br>ผลการสอบยอดเยี่ยม</p></div>
+      <div class="award a2"><div class="rk mark"><small>TOP</small>5</div><p>รับสิทธิพิเศษ<br>ลดหย่อนค่าเทอม*</p></div>
     </div>
     <p class="note">*เงื่อนไขเป็นไปตามประกาศของโรงเรียน</p>
   </section>
 </main>
 
 <footer><div class="wrap">
-  <div><strong>โรงเรียนพรตพิทยพยัต</strong> · เลขที่ 4 ถ.หลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</div>
+  <div><strong>โรงเรียนพรตพิทยพยัต</strong> เลขที่ 4 ถ.หลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</div>
   <div id="contact">ทีมงานวัดผลและประเมินผล</div>
 </div></footer>
+
+<div class="dock" id="dock" aria-hidden="true">
+  <div>PRE PROT TEST 2570<br><b>99 บาท</b> ต่อคน</div>
+  <a class="btn btn-main applyLink" href="#apply" tabindex="-1">สมัครสอบ</a>
+</div>
 
 <div id="examCard"></div>
 
@@ -354,6 +542,7 @@
     });
     if (d.announcement) { $('announce').style.display = 'block'; $('announce').textContent = d.announcement; }
     $('regState').textContent = d.config.registrationOpen ? 'เปิดรับสมัครแล้ว' : 'ยังไม่เปิดรับสมัคร';
+    document.body.classList.toggle('reg-open', !!d.config.registrationOpen);
     if (d.config.contact) $('contact').textContent = 'ทีมงานวัดผลและประเมินผล · ' + d.config.contact;
     $('pubState').textContent = 'ที่นั่งสอบ: ' + (d.seatsPublished ? 'ประกาศแล้ว' : 'ยังไม่ประกาศ') + ' · ผลสอบ: ' + (d.resultsPublished ? 'ประกาศแล้ว' : 'ยังไม่ประกาศ');
   }).catch(function(){
@@ -426,6 +615,110 @@
       render(d);
     }).catch(function(){ b.disabled = false; b.textContent = 'เข้าสู่ระบบ'; $('lkErr').textContent = 'เชื่อมต่อระบบไม่สำเร็จ กรุณาลองใหม่'; });
   };
+})();
+</script>
+<script>
+/* ลูกเล่นหน้าเว็บ: กระดาษคำตอบ นับถอยหลัง คัดลอกเลขบัญชี รายการอุปกรณ์ และแถบสมัครบนมือถือ */
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- กระดาษคำตอบ (แตะเพื่อระบาย) ----------
+  var CH = ['ก','ข','ค','ง'], ANS = [1,3,0,2,2,1,3,0,1,2], omr = $('omr'), rows = [], stopIntro = false;
+  for (var q = 0; q < 10; q++) {
+    var row = document.createElement('div'); row.className = 'row';
+    row.innerHTML = '<span class="q">' + (q + 1) + '</span>' + CH.map(function(c, i){
+      return '<button type="button" class="bub" data-q="' + q + '" data-c="' + i + '" aria-pressed="false" aria-label="ข้อ ' + (q + 1) + ' ตัวเลือก ' + c + '"><span>' + c + '</span></button>';
+    }).join('');
+    omr.appendChild(row); rows.push(row);
+  }
+  function visibleRows(){ return rows.filter(function(r){ return r.offsetParent !== null; }); }
+  function count(){
+    var vis = visibleRows(), n = 0;
+    vis.forEach(function(r){ if (r.querySelector('.bub[aria-pressed="true"]')) n++; });
+    $('omrCount').textContent = n;
+    $('omrCount').parentNode.lastChild.textContent = '/' + vis.length;
+    $('omrHint').textContent = n === vis.length ? 'ครบทุกข้อ วันสอบจริงระบายแบบนี้' : 'แตะวงกลมเพื่อลองระบายคำตอบ';
+  }
+  function mark(q, c){
+    rows[q].querySelectorAll('.bub').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.getAttribute('data-c') === c)); });
+    count();
+  }
+  omr.addEventListener('click', function(e){
+    var b = e.target.closest('.bub'); if (!b) return;
+    stopIntro = true;
+    if (b.getAttribute('aria-pressed') === 'true') { b.setAttribute('aria-pressed', 'false'); count(); }
+    else mark(+b.getAttribute('data-q'), +b.getAttribute('data-c'));
+  });
+  var intro = Math.max(1, visibleRows().length - 2);
+  if (reduce) { for (var i = 0; i < intro; i++) mark(i, ANS[i]); }
+  else {
+    var k = 0;
+    setTimeout(function step(){ if (stopIntro || k >= intro) return; mark(k, ANS[k]); k++; setTimeout(step, 300); }, 700);
+  }
+  count();
+  window.addEventListener('resize', count);
+
+  // ---------- นับถอยหลังสู่วันสอบ (24 ม.ค. 2570 เวลา 08.30 น.) ----------
+  var EXAM = new Date('2027-01-24T08:30:00+07:00').getTime();
+  var END = new Date('2027-01-24T12:10:00+07:00').getTime();
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var now = Date.now(), d = EXAM - now;
+    if (d <= 0) {
+      $('cd').style.display = 'none';
+      $('cdDone').style.display = 'block';
+      $('cdDone').textContent = now < END ? 'อยู่ระหว่างการสอบ' : 'สอบเสร็จแล้ว รอประกาศผลสอบ';
+      return false;
+    }
+    var s = Math.floor(d / 1000);
+    $('cdD').textContent = Math.floor(s / 86400);
+    $('cdH').textContent = pad(Math.floor(s % 86400 / 3600));
+    $('cdM').textContent = pad(Math.floor(s % 3600 / 60));
+    $('cdS').textContent = pad(s % 60);
+    return true;
+  }
+  if (tick()) { var cdTimer = setInterval(function(){ if (!tick()) clearInterval(cdTimer); }, 1000); }
+
+  // ---------- คัดลอกเลขบัญชี ----------
+  $('copyAcc').onclick = function(){
+    var b = this, num = $('accNo').textContent.replace(/\D/g, '');
+    function ok(){ b.textContent = 'คัดลอกแล้ว'; b.classList.add('done'); setTimeout(function(){ b.textContent = 'คัดลอกเลขบัญชี'; b.classList.remove('done'); }, 2000); }
+    function fallback(){
+      var t = document.createElement('textarea'); t.value = num; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); ok(); } catch (e) { b.textContent = 'คัดลอกไม่ได้ กรุณาจดเลขบัญชี'; }
+      document.body.removeChild(t);
+    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(num).then(ok, fallback); else fallback();
+  };
+
+  // ---------- รายการอุปกรณ์เข้าห้องสอบ (จำไว้ในเครื่อง) ----------
+  var KEY = 'ppt2570-prep', box = $('equip'), items = box.querySelectorAll('input'), saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch (e) {}
+  items.forEach(function(i){ i.checked = saved.indexOf(i.value) >= 0; });
+  function prep(){
+    var n = 0, v = [];
+    items.forEach(function(i){ if (i.checked) { n++; v.push(i.value); } });
+    $('prepN').textContent = n; $('prepT').textContent = items.length;
+    $('prepBar').style.width = (n / items.length * 100) + '%';
+    $('prepDone').style.display = n === items.length ? 'block' : 'none';
+    try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
+  }
+  box.addEventListener('change', prep); prep();
+
+  // ---------- แถบสมัครติดล่างจอ (มือถือ เมื่อเปิดรับสมัคร) ----------
+  var dock = $('dock'), hero = document.querySelector('.hero'), login = $('login'), foot = document.querySelector('footer');
+  function inView(el){ var r = el.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; }
+  function dockUpd(){
+    var show = document.body.classList.contains('reg-open') && window.scrollY > hero.offsetHeight - 80 && !inView(login) && !inView(foot);
+    dock.classList.toggle('show', show);
+    dock.setAttribute('aria-hidden', String(!show));
+    dock.querySelector('a').tabIndex = show ? 0 : -1;
+  }
+  window.addEventListener('scroll', dockUpd, { passive:true });
+  window.addEventListener('resize', dockUpd);
+  if (window.MutationObserver) new MutationObserver(dockUpd).observe(document.body, { attributes:true, attributeFilter:['class'] });
 })();
 </script>
 </body>
