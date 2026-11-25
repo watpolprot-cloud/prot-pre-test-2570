@@ -3,8 +3,8 @@ const fs = require('fs'), path = require('path');
 const src = fs.readFileSync(path.join(__dirname, '../apps-script/Index.html'), 'utf8');
 const cfg = {
   eventName: 'PROT PRE TEST 2570', subtitle: 'ลองสนามจริง ก่อนสอบจริง',
-  examDate: 'วันอาทิตย์ที่ 24 มกราคม 2570', place: 'โรงเรียนพรตพิทยพยัต',
-  fee: 99, maxStudents: 5,
+  examDate: 'วันเสาร์ที่ 23 มกราคม 2570', place: 'โรงเรียนพรตพิทยพยัต',
+  fee: 99, maxStudents: 1,
   groups: [
     { code: 'P', label: 'ลองสนามสอบเข้า ม.1', grades: ['ป.5', 'ป.6'], full: false },
     { code: 'M', label: 'ลองสนามสอบเข้า ม.4', grades: ['ม.3'], full: false }

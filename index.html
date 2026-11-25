@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PROT PRE TEST 2570</title>
-<meta name="description" content="ลองสนามจริง ก่อนสอบจริง สนามสอบโรงเรียนพรตพิทยพยัต สำหรับนักเรียน ป.5–ป.6 และ ม.3 สอบวันอาทิตย์ที่ 24 มกราคม 2570">
+<meta name="description" content="ลองสนามจริง ก่อนสอบจริง สนามสอบโรงเรียนพรตพิทยพยัต สำหรับนักเรียน ป.5–ป.6 และ ม.3 สอบวันเสาร์ที่ 23 มกราคม 2570">
 <meta name="theme-color" content="#24103f">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,6 +132,7 @@
   section{padding:64px 0 0;scroll-margin-top:64px}
   section > h2{font-size:clamp(26px,3.4vw,32px);color:var(--accent);margin:0 0 6px}
   section > .sub{color:var(--muted);margin:0 0 24px;max-width:46em}
+  section > .sub .rule1{display:inline-block;color:var(--accent);background:var(--surface-2);border-radius:8px;padding:1px 10px;margin-right:6px;font-weight:700}
   .announce{display:none;background:var(--warn-soft);color:var(--ink);border-left:5px solid var(--orange);border-radius:12px;padding:12px 16px;margin-top:22px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 
@@ -412,7 +413,7 @@
   <div class="ticket-wrap">
     <div class="ticket">
       <div class="t-main">
-        <div><small>วันสอบ</small><strong>24 ม.ค. 2570</strong><div class="hint">วันอาทิตย์ <span class="nw">เริ่มสอบ 08.30 น.</span></div></div>
+        <div><small>วันสอบ</small><strong>23 ม.ค. 2570</strong><div class="hint">วันเสาร์ <span class="nw">เริ่มสอบ 08.30 น.</span></div></div>
         <div><small>รับสมัคร</small><strong>มกราคม 2570</strong><span id="regState">ออนไลน์</span></div>
         <div><small>ค่าสมัครสอบ</small><strong><span class="big">99</span> บาท</strong><div class="hint">ต่อคน</div></div>
         <div><small>สถานที่สอบ</small><strong>โรงเรียน<span class="nw">พรตพิทยพยัต</span></strong><div class="hint"><span class="nw">ถ.หลวงพรต</span> <span class="nw">เขตลาดกระบัง</span></div></div>
@@ -455,12 +456,12 @@
 
   <section id="apply">
     <h2>วิธีสมัคร</h2>
-    <p class="sub">สมัครพร้อมกันได้สูงสุด 5 คนต่อสลิป (เช่น พี่น้อง) โอนครั้งเดียวตามจำนวนคน</p>
+    <p class="sub"><b class="rule1">1 ใบสมัคร = 1 คน = 1 สลิป</b> <span class="nw">มีบุตรหลานหลายคน</span> <span class="nw">โอนแยกคนละ 99 บาท</span> <span class="nw">และสมัครทีละคน</span></p>
     <div class="steps">
-      <div class="step"><span class="num">1</span><h3>โอนค่าสมัคร</h3><p>99 บาทต่อคน เข้าบัญชีโรงเรียน<span class="nw">ด้านล่าง</span></p></div>
-      <div class="step"><span class="num">2</span><h3>กรอกใบสมัคร</h3><p>ข้อมูลผู้ปกครองและผู้สมัคร</p></div>
+      <div class="step"><span class="num">1</span><h3>โอนค่าสมัคร</h3><p>99 บาทต่อคน <span class="nw">คนละ 1 สลิป</span> เข้าบัญชีโรงเรียน<span class="nw">ด้านล่าง</span></p></div>
+      <div class="step"><span class="num">2</span><h3>กรอกใบสมัคร</h3><p>ข้อมูลผู้ปกครอง<br>และผู้สมัคร <span class="nw">1 คนต่อใบ</span></p></div>
       <div class="step"><span class="num">3</span><h3>แนบสลิป</h3><p>ภาพสลิปต้นฉบับจากแอปธนาคาร <span class="nw">เห็น QR Code ชัด</span></p></div>
-      <div class="step"><span class="num">4</span><h3>เข้าสู่ระบบ</h3><p>ด้วยเลขประจำตัวประชาชน<br>และ<span class="nw">เบอร์โทร</span>ที่ใช้สมัคร</p></div>
+      <div class="step"><span class="num">4</span><h3>เข้าสู่ระบบ</h3><p>ด้วยเลขประจำตัวประชาชน<span class="nw">ของผู้สมัคร</span><br>และ<span class="nw">เบอร์โทร</span>ที่ใช้สมัคร</p></div>
     </div>
     <div class="bank">
       <div>
@@ -568,7 +569,7 @@
     schedule:[
       {date:'มกราคม 2570', item:'เปิดรับสมัครออนไลน์', note:'วันเริ่ม-สิ้นสุด รอประกาศ'},
       {date:'(รอกำหนด)', item:'ประกาศเลขที่นั่งสอบและห้องสอบ', note:'เข้าระบบที่เว็บไซต์นี้'},
-      {date:'24 มกราคม 2570', item:'วันสอบ', note:'ณ โรงเรียนพรตพิทยพยัต'},
+      {date:'23 มกราคม 2570', item:'วันสอบ', note:'ณ โรงเรียนพรตพิทยพยัต'},
       {date:'(รอกำหนด)', item:'ประกาศผลสอบ', note:'TOP 10 รับเกียรติบัตร · TOP 5 รับสิทธิพิเศษลดหย่อนค่าเทอม*'}],
     timetable:[
       {time:'07.30–08.00 น.', item:'ลงทะเบียนและเข้าแถวตามห้องสอบ', note:'ลานโดมอเนกประสงค์'},
@@ -580,7 +581,7 @@
     payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
     seatsPublished:true, seat:{ seatNo:'P0105', room:'531', building:'อาคาร 5' },
     resultsPublished:true, result:{ scores:[{subject:'ภาษาไทย',score:20,full:null},{subject:'คณิตศาสตร์',score:18,full:null},{subject:'วิทยาศาสตร์',score:22,full:null},{subject:'สังคมศึกษาฯ',score:15,full:null},{subject:'ภาษาอังกฤษ',score:24,full:null}], total:99, totalFull:null, rank:4, top10:true },
-    examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' };
+    examDate:'วันเสาร์ที่ 23 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' };
 
   // บัญชีจำลองสำหรับดูตัวอย่างการรายงานผลสอบ (ใช้ได้ทั้งเว็บจริงและโหมดสาธิต ไม่เรียกระบบรับสมัคร)
   // เข้าระบบด้วยเลขที่สมัคร DEMO1 หรือ DEMO4 และรหัสผ่าน 0000000000
@@ -598,13 +599,13 @@
       payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
       seatsPublished:true, seat:{ seatNo:'P0105', room:'531', building:'อาคาร 5' },
       resultsPublished:true, result:previewResult({ n:128, sc:[25,27,25,22,25], mean:[19.4,17.8,18.6,18.9,16.2], sd:[3.6,4.9,4.1,3.8,5.2], min:[8,5,7,9,4], max:[29,30,29,28,30], total:124, tm:[90.9,15.8,41,137], rank:4 }),
-      examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' },
+      examDate:'วันเสาร์ที่ 23 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' },
     DEMO4: { ok:true, demo:true, appId:'DEMO4', name:'นายตัวอย่าง ข้อมูลจำลอง', idMasked:'x-xxxx-xxxxx-xx-x', grade:'ม.3', groupCode:'M',
       group:'ลองสนามสอบเข้า ม.4', school:'โรงเรียนตัวอย่าง', submissionId:'ตัวอย่าง',
       payment:{ state:'ok', text:'ยืนยันการชำระเงินแล้ว การสมัครสมบูรณ์', message:'' },
       seatsPublished:true, seat:{ seatNo:'M0212', room:'542', building:'อาคาร 5' },
       resultsPublished:true, result:previewResult({ n:74, sc:[18,15,20,21,17], mean:[17.2,14.1,16.8,18.5,15.9], sd:[3.9,5.1,4.4,3.7,4.8], min:[6,3,5,8,4], max:[28,27,29,29,28], total:91, tm:[82.5,16.4,38,131], rank:23 }),
-      examDate:'วันอาทิตย์ที่ 24 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' }
+      examDate:'วันเสาร์ที่ 23 มกราคม 2570', place:'โรงเรียนพรตพิทยพยัต' }
   };
 
   function call(body){
@@ -844,9 +845,9 @@
   count();
   window.addEventListener('resize', count);
 
-  // ---------- นับถอยหลังสู่วันสอบ (24 ม.ค. 2570 เวลา 08.30 น.) ----------
-  var EXAM = new Date('2027-01-24T08:30:00+07:00').getTime();
-  var END = new Date('2027-01-24T12:10:00+07:00').getTime();
+  // ---------- นับถอยหลังสู่วันสอบ (23 ม.ค. 2570 เวลา 08.30 น.) ----------
+  var EXAM = new Date('2027-01-23T08:30:00+07:00').getTime();
+  var END = new Date('2027-01-23T12:10:00+07:00').getTime();
   function pad(n){ return (n < 10 ? '0' : '') + n; }
   function tick(){
     var now = Date.now(), d = EXAM - now;

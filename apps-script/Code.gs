@@ -8,7 +8,7 @@
  *  - เมนู "Prot Pre Test" ใน Google Sheet = งานเจ้าหน้าที่ (ยืนยันการชำระเงิน กระทบยอด จัดที่นั่ง คิดคะแนน)
  *
  * การตรวจสลิป (ไม่มีค่าใช้จ่าย)
- *  1) กันสลิปซ้ำ: ลายนิ้วมือไฟล์ (SHA-256) + ข้อมูล QR + เลขอ้างอิงธุรกรรม
+ *  1) กันสลิปซ้ำ (1 คน ต่อ 1 สลิป): ไฟล์หรือ QR ซ้ำ → ไม่รับตั้งแต่ตอนส่ง · เลขอ้างอิงธุรกรรมซ้ำ → ให้เจ้าหน้าที่ตรวจ
  *  2) อ่าน QR บนสลิป (อ่านในเบราว์เซอร์ผู้สมัคร) ตรวจโครงสร้างและรหัสตรวจสอบ CRC ของ QR สลิปธนาคารไทย
  *  3) อ่านตัวอักษรบนสลิปด้วย OCR ของ Google Drive (ฟรี) แล้วตรวจ เลขบัญชีผู้รับ ชื่อบัญชี ยอดเงิน วันเวลาโอน
  *  4) กระทบยอดกับ "รายการเงินเข้า" ที่เจ้าหน้าที่วางจากรายการเดินบัญชีของโรงเรียน = ขั้นที่ยืนยันได้ว่าเงินเข้าจริง
@@ -18,16 +18,16 @@
  * ติดตั้ง: ดู README.md
  */
 
-var VERSION = '2.0.0';
+var VERSION = '2.1.0';
 
 // ======================= ค่าคงที่ของกิจกรรม =======================
 var CONFIG = {
   EVENT_NAME: 'PROT PRE TEST 2570',
   EVENT_SUBTITLE: 'ลองสนามจริง ก่อนสอบจริง',
-  EXAM_DATE_TEXT: 'วันอาทิตย์ที่ 24 มกราคม 2570',
+  EXAM_DATE_TEXT: 'วันเสาร์ที่ 23 มกราคม 2570',
   EXAM_PLACE: 'โรงเรียนพรตพิทยพยัต',
   FEE_PER_PERSON: 99,
-  MAX_STUDENTS_PER_SLIP: 5,
+  MAX_STUDENTS_PER_SLIP: 1, // 1 ใบสมัคร = ผู้สมัคร 1 คน = สลิป 1 ใบ (พี่น้องสมัครแยกทีละคน)
   TEAM_NAME: 'ทีมงานวัดผลและประเมินผล โรงเรียนพรตพิทยพยัต',
   GROUPS: [
     { code: 'P', label: 'ลองสนามสอบเข้า ม.1', grades: ['ป.5', 'ป.6'] },
@@ -327,6 +327,12 @@ function submitApplication(payload) {
     });
 
     var bytes = Utilities.base64Decode(v.slip.base64);
+    // 1 คน ต่อ 1 สลิป: ไม่รับสลิปที่เคยใช้กับใบสมัครอื่นแล้ว (ไฟล์เดียวกัน หรือ QR บนสลิปเดียวกัน)
+    var slipHash = sha256Hex_(bytes);
+    var activePays = payments.filter(function (r) { return r['สถานะ'] !== STATUS.REJECTED; });
+    if (activePays.some(function (r) { return String(r['SHA-256 ไฟล์สลิป']) === slipHash || (v.qrData && String(r['ข้อมูล QR บนสลิป']) === v.qrData); })) {
+      throw new Error('สลิปนี้เคยใช้สมัครแล้ว สลิป 1 ใบใช้ได้กับผู้สมัคร 1 คนเท่านั้น หากสมัครให้อีกคน กรุณาโอนค่าสมัครแยกอีก ' + CONFIG.FEE_PER_PERSON + ' บาท แล้วแนบสลิปใหม่');
+    }
     var now = new Date();
     submissionId = nextId_('PAY', 'T');
     var ext = v.slip.mimeType === 'image/png' ? '.png' : '.jpg';
@@ -336,7 +342,7 @@ function submitApplication(payload) {
       'เลขที่รายการ': submissionId, 'วันเวลาส่ง': now, 'ชื่อผู้ปกครอง': v.guardian.name,
       'เบอร์โทรศัพท์': "'" + v.guardian.phone, 'อีเมล': v.guardian.email, 'จำนวนผู้สมัคร': v.students.length,
       'ยอดที่ต้องชำระ': CONFIG.FEE_PER_PERSON * v.students.length, 'ลิงก์สลิป': file.getUrl(),
-      'SHA-256 ไฟล์สลิป': sha256Hex_(bytes), 'ข้อมูล QR บนสลิป': v.qrData,
+      'SHA-256 ไฟล์สลิป': slipHash, 'ข้อมูล QR บนสลิป': v.qrData,
       'สถานะ': STATUS.NEED_CHECK, 'รายละเอียดผลตรวจ': 'กำลังตรวจ...'
     });
     v.students.forEach(function (st) {
@@ -378,14 +384,18 @@ function validatePayload_(p) {
   if (guardian.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guardian.email)) throw new Error('อีเมลไม่ถูกต้อง');
 
   var list = Array.isArray(p.students) ? p.students : [];
-  if (list.length < 1 || list.length > CONFIG.MAX_STUDENTS_PER_SLIP) throw new Error('จำนวนผู้สมัครต่อครั้งต้องอยู่ระหว่าง 1–' + CONFIG.MAX_STUDENTS_PER_SLIP + ' คน');
+  var max = CONFIG.MAX_STUDENTS_PER_SLIP;
+  if (list.length < 1) throw new Error('กรุณากรอกข้อมูลผู้สมัคร');
+  if (list.length > max) throw new Error(max === 1
+    ? 'ใบสมัคร 1 ใบสมัครได้ 1 คน (1 คน ต่อ 1 สลิป) หากมีผู้สมัครหลายคน กรุณาโอนและส่งใบสมัครแยกทีละคน'
+    : 'จำนวนผู้สมัครต่อครั้งต้องไม่เกิน ' + max + ' คน');
   var seen = {};
   var students = list.map(function (s, i) {
     var st = {
       prefix: clean_(s.prefix, 20), firstName: clean_(s.firstName, 60), lastName: clean_(s.lastName, 60),
       idCard: String(s.idCard || '').replace(/\D/g, ''), grade: clean_(s.grade, 10), school: clean_(s.school, 150)
     };
-    var no = 'ผู้สมัครคนที่ ' + (i + 1) + ': ';
+    var no = max === 1 ? '' : 'ผู้สมัครคนที่ ' + (i + 1) + ': ';
     if (['เด็กชาย', 'เด็กหญิง', 'นาย', 'นางสาว'].indexOf(st.prefix) < 0) throw new Error(no + 'กรุณาเลือกคำนำหน้า');
     if (!st.firstName || !st.lastName) throw new Error(no + 'กรุณากรอกชื่อ-นามสกุลให้ครบ');
     if (!isThaiId_(st.idCard)) throw new Error(no + 'เลขประจำตัวประชาชนไม่ถูกต้อง');
@@ -1033,7 +1043,7 @@ function setup() {
   ensure(SHEETS.SCHEDULE, ['วันที่', 'รายการ', 'หมายเหตุ'], [
     ['มกราคม 2570', 'เปิดรับสมัครออนไลน์', 'วันเริ่ม-สิ้นสุด รอประกาศ'],
     ['(รอกำหนด)', 'ประกาศเลขที่นั่งสอบและห้องสอบ', 'เข้าระบบที่เว็บไซต์นี้'],
-    ['24 มกราคม 2570', 'วันสอบ', 'ณ โรงเรียนพรตพิทยพยัต'],
+    ['23 มกราคม 2570', 'วันสอบ', 'ณ โรงเรียนพรตพิทยพยัต'],
     ['(รอกำหนด)', 'ประกาศผลสอบ', 'TOP 10 รับเกียรติบัตร · TOP 5 รับสิทธิพิเศษลดหย่อนค่าเทอม*']
   ]);
   ensure(SHEETS.TIMETABLE, ['เวลา', 'รายการ', 'หมายเหตุ'], [

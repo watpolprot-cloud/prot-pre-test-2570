@@ -64,8 +64,13 @@
   .ids div:last-child{border:0}
   .closed{text-align:center;padding:30px 20px}
   footer{text-align:center;color:var(--muted);font-size:14px;padding:0 16px 30px}
+  .rule{display:flex;gap:14px;align-items:center;background:#fff;border-radius:16px;box-shadow:0 6px 24px rgba(58,29,92,.10);padding:16px 18px;margin-bottom:16px;border-left:6px solid var(--orange)}
+  .rule .eq{font-family:Anuphan,sans-serif;font-weight:700;color:var(--purple);font-size:18px;line-height:1.35;flex:none}
+  .rule .eq b{color:var(--orange)}
+  .rule p{margin:0;font-size:15px;color:var(--ink)}
+  .again{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
   .demo{background:#fff4e0;color:#8a4b00;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:12px}
-  @media (max-width:600px){.grid,.facts{grid-template-columns:1fr}.hero h1{font-size:25px}.bank{flex-wrap:wrap}.copy{margin-left:0}}
+  @media (max-width:600px){.rule{flex-direction:column;align-items:flex-start;gap:6px}.grid,.facts{grid-template-columns:1fr}.hero h1{font-size:25px}.bank{flex-wrap:wrap}.copy{margin-left:0}}
 </style>
 </head>
 <body>
@@ -89,6 +94,11 @@
     </div>
   </div>
 
+  <div id="ruleBox" class="rule" style="display:none">
+    <div class="eq">1 ใบสมัคร = 1 คน = <b>1 สลิป</b></div>
+    <p>มีบุตรหลานสมัครหลายคน กรุณาโอนแยกคนละ <span class="feeTxt"></span> และส่งใบสมัครทีละคน (ส่งคนแรกเสร็จ กด "สมัครให้อีกคน" ได้ทันที)</p>
+  </div>
+
   <div id="closedBox" class="card closed" style="display:none"></div>
 
   <form id="form" novalidate>
@@ -101,9 +111,9 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="stuCard">
       <h2><span class="num">2</span>ข้อมูลผู้สมัครสอบ</h2>
-      <p class="hint" style="margin-top:-6px">สมัครพร้อมกันได้สูงสุด <span id="maxN"></span> คน ด้วยสลิปเดียว (เช่น พี่น้อง)</p>
+      <p class="hint" style="margin-top:-6px" id="multiHint">สมัครพร้อมกันได้สูงสุด <span id="maxN"></span> คน ด้วยสลิปเดียว (เช่น พี่น้อง)</p>
       <div id="students"></div>
       <button type="button" class="btn btn-ghost" id="addBtn">+ เพิ่มผู้สมัครอีกคน</button>
     </div>
@@ -119,8 +129,8 @@
         </div>
         <button type="button" class="btn btn-ghost copy" id="copyBtn">คัดลอกเลขบัญชี</button>
       </div>
-      <div class="total"><span>ยอดที่ต้องโอน (<span id="nCount">1</span> คน)</span><strong id="totalAmt"></strong></div>
-      <p class="hint">โอนยอดให้ตรงกับจำนวนผู้สมัคร แล้วแนบภาพสลิปจากแอปธนาคาร (ภาพต้นฉบับ ไม่ครอป ให้เห็น QR Code ชัดเจน)</p>
+      <div class="total"><span id="totalLabel">ยอดที่ต้องโอน (<span id="nCount">1</span> คน)</span><strong id="totalAmt"></strong></div>
+      <p class="hint" id="payHint">โอนยอดให้ตรงกับจำนวนผู้สมัคร แล้วแนบภาพสลิปจากแอปธนาคาร (ภาพต้นฉบับ ไม่ครอป ให้เห็น QR Code ชัดเจน)</p>
       <label class="drop" id="drop">
         <input type="file" id="slip" accept="image/*">
         <span id="dropText"><strong>แตะเพื่อเลือกภาพสลิป</strong><br><span class="hint">ไฟล์ JPG หรือ PNG</span></span>
@@ -142,7 +152,7 @@
 <footer id="foot"></footer>
 
 <script>
-var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจริง ก่อนสอบจริง","examDate":"วันอาทิตย์ที่ 24 มกราคม 2570","place":"โรงเรียนพรตพิทยพยัต","fee":99,"maxStudents":5,"groups":[{"code":"P","label":"ลองสนามสอบเข้า ม.1","grades":["ป.5","ป.6"],"full":false},{"code":"M","label":"ลองสนามสอบเข้า ม.4","grades":["ม.3"],"full":false}],"bank":{"bankName":"ธนาคารกรุงไทย","branch":"สาขาเทคโนโลยีพระจอมเกล้าฯ ลาดกระบัง","accountDisplay":"693-0-53838-8","accountName":"เงินสวัสดิการโรงเรียนพรตพิทยพยัต"},"team":"ทีมงานวัดผลและประเมินผล โรงเรียนพรตพิทยพยัต","registrationOpen":true,"registrationNote":"ขณะนี้ยังไม่เปิดรับสมัคร","contact":"กลุ่มบริหารวิชาการ โทร. 0-2326-4050 หรือ 093-428-1595","statusPageUrl":"index.html","aiSlipCheck":true};
+var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจริง ก่อนสอบจริง","examDate":"วันเสาร์ที่ 23 มกราคม 2570","place":"โรงเรียนพรตพิทยพยัต","fee":99,"maxStudents":1,"groups":[{"code":"P","label":"ลองสนามสอบเข้า ม.1","grades":["ป.5","ป.6"],"full":false},{"code":"M","label":"ลองสนามสอบเข้า ม.4","grades":["ม.3"],"full":false}],"bank":{"bankName":"ธนาคารกรุงไทย","branch":"สาขาเทคโนโลยีพระจอมเกล้าฯ ลาดกระบัง","accountDisplay":"693-0-53838-8","accountName":"เงินสวัสดิการโรงเรียนพรตพิทยพยัต"},"team":"ทีมงานวัดผลและประเมินผล โรงเรียนพรตพิทยพยัต","registrationOpen":true,"registrationNote":"ขณะนี้ยังไม่เปิดรับสมัคร","contact":"กลุ่มบริหารวิชาการ โทร. 0-2326-4050 หรือ 093-428-1595","statusPageUrl":"index.html","aiSlipCheck":true};
 </script>
 <script>
 (function(){
@@ -158,6 +168,14 @@ var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจ
   $('fFee').textContent = CFG.fee + ' บาท / คน';
   $('fPlace').textContent = CFG.place;
   $('maxN').textContent = CFG.maxStudents;
+  var SINGLE = CFG.maxStudents <= 1; // 1 ใบสมัคร = ผู้สมัคร 1 คน = สลิป 1 ใบ
+  if (SINGLE) {
+    $('multiHint').style.display = 'none';
+    $('ruleBox').style.display = 'flex';
+    [].forEach.call(document.querySelectorAll('.feeTxt'), function(el){ el.textContent = fmt(CFG.fee); });
+    $('totalLabel').innerHTML = 'ยอดที่ต้องโอน (ผู้สมัคร <span id="nCount">1</span> คน)';
+    $('payHint').textContent = 'สลิป 1 ใบใช้ได้กับผู้สมัคร 1 คนเท่านั้น ระบบไม่รับสลิปที่เคยใช้สมัครแล้ว แนบภาพสลิปจากแอปธนาคาร (ภาพต้นฉบับ ไม่ครอป ให้เห็น QR Code ชัดเจน)';
+  }
   $('bName').textContent = CFG.bank.bankName + ' ' + CFG.bank.branch;
   $('bAcc').textContent = CFG.bank.accountDisplay;
   $('bAccName').textContent = CFG.bank.accountName;
@@ -166,6 +184,7 @@ var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจ
 
   if (!CFG.registrationOpen) {
     $('form').style.display = 'none';
+    $('ruleBox').style.display = 'none';
     $('closedBox').style.display = 'block';
     $('closedBox').innerHTML = '<h2 style="justify-content:center">' + esc(CFG.registrationNote) + '</h2>' +
       (CFG.statusPageUrl ? '<p><a href="' + encodeURI(CFG.statusPageUrl) + '">ดูกำหนดการและตรวจสถานะ</a></p>' : '');
@@ -178,7 +197,7 @@ var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจ
       return '<optgroup label="' + esc(g.label) + (g.full ? ' (ที่นั่งเต็ม)' : '') + '">' + g.grades.map(function(x){ return '<option' + (g.full ? ' disabled' : '') + '>' + x + (g.full ? ' (เต็ม)' : '') + '</option>'; }).join('') + '</optgroup>';
     }).join('');
     return '<div class="student" data-i="' + i + '">' +
-      '<h3>ผู้สมัครคนที่ <span class="no"></span></h3>' + (i ? '<button type="button" class="rm">ลบ</button>' : '') +
+      (SINGLE ? '<span class="no" hidden></span>' : '<h3>ผู้สมัครคนที่ <span class="no"></span></h3>') + (i ? '<button type="button" class="rm">ลบ</button>' : '') +
       '<div class="grid">' +
       '<div><label>คำนำหน้า</label><select name="prefix"><option value="">เลือก</option><option>เด็กชาย</option><option>เด็กหญิง</option><option>นาย</option><option>นางสาว</option></select></div>' +
       '<div><label>ชั้นปัจจุบัน</label><select name="grade">' + gOpts + '</select></div>' +
@@ -272,7 +291,7 @@ var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจ
     document.querySelectorAll('.student').forEach(function(el, k){
       var g = function(n){ return el.querySelector('[name=' + n + ']').value.trim(); };
       var s = { prefix: g('prefix'), firstName: g('firstName'), lastName: g('lastName'), idCard: g('idCard').replace(/\D/g, ''), grade: g('grade'), school: g('school') };
-      var no = 'ผู้สมัครคนที่ ' + (k + 1) + ': ';
+      var no = SINGLE ? '' : 'ผู้สมัครคนที่ ' + (k + 1) + ': ';
       if (!s.prefix || !s.firstName || !s.lastName) throw no + 'กรุณากรอกคำนำหน้า ชื่อ และนามสกุล';
       if (!thaiIdOk(s.idCard)) throw no + 'เลขประจำตัวประชาชนไม่ถูกต้อง';
       if (seen[s.idCard]) throw no + 'เลขประจำตัวประชาชนซ้ำกับคนอื่นในใบสมัครนี้';
@@ -284,6 +303,19 @@ var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจ
     if (!slipData) throw 'กรุณาแนบภาพสลิปการโอนเงิน';
     if (!p.consent) throw 'กรุณาทำเครื่องหมายยินยอมการใช้ข้อมูลส่วนบุคคล';
     return p;
+  }
+
+  var dropHtml = $('dropText').innerHTML;
+  function resetForNext(){
+    $('students').innerHTML = ''; seq = 0; addStudent();
+    slipData = null; qrData = ''; $('slip').value = '';
+    $('preview').style.display = 'none'; $('preview').removeAttribute('src');
+    $('dropText').innerHTML = dropHtml; $('qrState').textContent = '';
+    $('consent').checked = false; $('err').className = 'alert';
+    var b = $('submitBtn'); b.disabled = false; b.textContent = 'ส่งใบสมัคร';
+    $('doneBox').style.display = 'none'; $('doneBox').innerHTML = '';
+    $('form').style.display = ''; $('ruleBox').style.display = 'flex';
+    $('stuCard').scrollIntoView({behavior:'smooth', block:'start'});
   }
 
   $('form').onsubmit = function(e){
@@ -300,7 +332,11 @@ var CFG = {"eventName":"PROT PRE TEST 2570","subtitle":"ลองสนามจ
         '<p>' + esc(r.message) + '</p>' +
         '<p class="hint">เข้าดูสถานะ เลขที่นั่งสอบ และผลสอบ ด้วยเลขประจำตัวประชาชนของผู้สมัคร (หรือเลขที่สมัคร) และเบอร์โทรศัพท์ที่กรอกในใบสมัคร</p>' +
         (CFG.statusPageUrl ? '<a class="btn btn-ghost" style="display:inline-block;text-decoration:none" href="' + encodeURI(CFG.statusPageUrl) + '">ไปหน้าตรวจสถานะ</a>' : '') +
-        '<p class="hint">แนะนำให้บันทึกภาพหน้าจอนี้ไว้</p>';
+        '<p class="hint">แนะนำให้บันทึกภาพหน้าจอนี้ไว้</p>' +
+        (SINGLE ? '<div class="again"><p style="margin:0 0 10px">มีบุตรหลานสมัครอีกคน? โอนค่าสมัครแยกอีก ' + esc(fmt(CFG.fee)) + ' แล้วกดปุ่มนี้ ระบบจะใช้ข้อมูลผู้ปกครองเดิม</p>' +
+          '<button type="button" class="btn btn-ghost" id="againBtn">สมัครให้อีกคน</button></div>' : '');
+      if (SINGLE) $('againBtn').onclick = resetForNext;
+      $('ruleBox').style.display = 'none';
       window.scrollTo({top:0, behavior:'smooth'});
     };
     var fail = function(err){ b.disabled = false; b.textContent = 'ส่งใบสมัคร'; showErr((err && err.message) || String(err)); };

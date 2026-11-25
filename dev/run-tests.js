@@ -50,31 +50,58 @@ t('parseSlipQr_ garbage', () => { const q = U.parseSlipQr_('https://example.com'
 
 console.log('Flow: register → verify → reconcile → seats → results → login');
 const now = new Date(); const paidAt = new Date(now.getTime() - 5 * 60000); paidAt.setSeconds(0, 0);
-const { ctx: G, env: E } = load({ ocrText: ktbSlipText(198, paidAt) });
+const paidAt2 = new Date(paidAt.getTime() - 20 * 60000), paidAt3 = new Date(paidAt.getTime() - 40 * 60000);
+const hhmm = d => String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+const credit = (d, amt) => { const c = new Date(d.getTime() + 60000); return [new Date(c.getFullYear(), c.getMonth(), c.getDate()), hhmm(c), amt, 'โอนเข้า', '', '']; };
+const imgB = Buffer.from('slip-B').toString('base64'), imgC = Buffer.from('slip-C').toString('base64');
+const { ctx: G, env: E } = load({ ocrText: ktbSlipText(99, paidAt) });
 const sheet = n => E._sheets[n];
 const setSetting = (k, v) => { const sh = sheet('ตั้งค่า'); const row = sh.data.findIndex(r => r[0] === k); assert(row > 0, 'no setting ' + k); sh.data[row][1] = v; };
 const rowsOf = n => { const d = sheet(n).data; return d.slice(1).map(r => Object.fromEntries(d[0].map((h, i) => [h, r[i]]))); };
 t('setup creates tabs', () => { G.setup(); ['ผู้สมัคร', 'การชำระเงิน', 'รายการเงินเข้า', 'ห้องสอบ', 'ผลสอบ', 'กำหนดการ', 'ตารางเวลาวันสอบ', 'ตั้งค่า'].forEach(n => assert(sheet(n), n)); assert.equal(rowsOf('ห้องสอบ').length, 15); });
 t('closed registration rejects', () => { assert.throws(() => G.submitApplication(payload([], '0812345678', '')), /ไม่อยู่ในช่วง/); });
 let r1;
-t('submit 2 students → SLIP_OK', () => {
+t('submit 1 student → SLIP_OK', () => {
   setSetting('เปิดรับสมัคร', true);
   r1 = G.submitApplication(payload([
-    { prefix: 'เด็กหญิง', firstName: 'ก', lastName: 'ทดสอบ', idCard: ID1, grade: 'ป.6', school: 'รร.ก' },
-    { prefix: 'นาย', firstName: 'ข', lastName: 'ทดสอบ', idCard: ID3, grade: 'ม.3', school: 'รร.ข' }], '0812345678', slipQr('006', 'REFAAA111222333')));
-  assert.equal(r1.applicants.length, 2); assert.equal(r1.applicants[0].appId, 'P700001'); assert.equal(r1.applicants[1].appId, 'M700001');
+    { prefix: 'เด็กหญิง', firstName: 'ก', lastName: 'ทดสอบ', idCard: ID1, grade: 'ป.6', school: 'รร.ก' }], '0812345678', slipQr('006', 'REFAAA111222333')));
+  assert.equal(r1.applicants.length, 1); assert.equal(r1.applicants[0].appId, 'P700001'); assert.equal(r1.submissionId, 'T700001');
   const p = rowsOf('การชำระเงิน')[0];
   assert.equal(p['สถานะ'], G.STATUS.SLIP_OK, p['รายละเอียดผลตรวจ']);
-  assert.equal(p['ยอดที่ต้องชำระ'], 198); assert(p['วันเวลาโอน'] instanceof Date); assert.equal(p['เลขอ้างอิงธุรกรรม'], 'REFAAA111222333');
+  assert.equal(p['ยอดที่ต้องชำระ'], 99); assert.equal(p['จำนวนผู้สมัคร'], 1); assert(p['วันเวลาโอน'] instanceof Date); assert.equal(p['เลขอ้างอิงธุรกรรม'], 'REFAAA111222333');
   assert.equal(E._mails.length, 1);
   assert.equal(rowsOf('ผู้สมัคร')[0]['เบอร์โทรศัพท์'], '0812345678');
 });
+t('2 students in one form → rejected (1 คน ต่อ 1 สลิป)', () => {
+  assert.throws(() => G.submitApplication(payload([
+    { prefix: 'เด็กชาย', firstName: 'ข1', lastName: 'พี่น้อง', idCard: ID2, grade: 'ป.5', school: 'x' },
+    { prefix: 'นาย', firstName: 'ข2', lastName: 'พี่น้อง', idCard: ID3, grade: 'ม.3', school: 'x' }], '0812345678', '', imgB)), /1 คน ต่อ 1 สลิป/);
+  assert.equal(G.publicConfig_().maxStudents, 1);
+});
+t('sibling, same phone, own slip → separate record & account', () => {
+  E._ocrText = ktbSlipText(99, paidAt2);
+  const r = G.submitApplication(payload([{ prefix: 'นาย', firstName: 'ข', lastName: 'ทดสอบ', idCard: ID3, grade: 'ม.3', school: 'รร.ข' }], '0812345678', slipQr('006', 'REFBBB444555666'), imgB));
+  assert.equal(r.submissionId, 'T700002'); assert.equal(r.applicants[0].appId, 'M700001');
+  const p = rowsOf('การชำระเงิน')[1]; assert.equal(p['สถานะ'], G.STATUS.SLIP_OK, p['รายละเอียดผลตรวจ']); assert.equal(p['ยอดที่ต้องชำระ'], 99);
+  assert.equal(E._mails.length, 2);
+});
 t('duplicate id rejected', () => { assert.throws(() => G.submitApplication(payload([{ prefix: 'เด็กชาย', firstName: 'ค', lastName: 'ซ้ำ', idCard: ID1, grade: 'ป.5', school: 'x' }], '0899999999', '')), /สมัครไว้แล้ว/); });
-t('same slip reused → NEED_CHECK', () => {
-  const r = G.submitApplication(payload([{ prefix: 'เด็กชาย', firstName: 'ง', lastName: 'ซ้ำสลิป', idCard: ID2, grade: 'ป.5', school: 'x' }], '0899999999', slipQr('006', 'REFAAA111222333')));
+t('same slip file reused → blocked at submit', () => {
+  const before = rowsOf('การชำระเงิน').length;
+  assert.throws(() => G.submitApplication(payload([{ prefix: 'เด็กชาย', firstName: 'ง', lastName: 'ซ้ำสลิป', idCard: ID2, grade: 'ป.5', school: 'x' }], '0899999999', '')), /สลิปนี้เคยใช้สมัครแล้ว/);
+  assert.equal(rowsOf('การชำระเงิน').length, before); assert.equal(rowsOf('ผู้สมัคร').length, 2);
+});
+t('same slip QR (re-saved image) → blocked at submit', () => {
+  assert.throws(() => G.submitApplication(payload([{ prefix: 'เด็กชาย', firstName: 'ง', lastName: 'ซ้ำสลิป', idCard: ID2, grade: 'ป.5', school: 'x' }], '0899999999', slipQr('006', 'REFBBB444555666'), imgC)), /1 สลิปต่อ|1 ใบใช้ได้กับผู้สมัคร 1 คน/);
+});
+t('one slip paid for 2 kids (198) → NEED_CHECK wrong amount', () => {
+  E._ocrText = ktbSlipText(198, paidAt3);
+  const r = G.submitApplication(payload([{ prefix: 'เด็กชาย', firstName: 'ง', lastName: 'ซ้ำสลิป', idCard: ID2, grade: 'ป.5', school: 'x' }], '0899999999', slipQr('006', 'REFCCC777888999'), imgC));
+  assert.equal(r.submissionId, 'T700003');
   const p = rowsOf('การชำระเงิน').find(x => x['เลขที่รายการ'] === r.submissionId);
   assert.equal(p['สถานะ'], G.STATUS.NEED_CHECK);
-  assert(/ไฟล์สลิปซ้ำ/.test(p['รายละเอียดผลตรวจ']) && /QR บนสลิปซ้ำ/.test(p['รายละเอียดผลตรวจ']), p['รายละเอียดผลตรวจ']);
+  assert(/198/.test(p['รายละเอียดผลตรวจ']) && /ไม่ตรงกับยอดที่ต้องชำระ 99/.test(p['รายละเอียดผลตรวจ']), p['รายละเอียดผลตรวจ']);
+  E._ocrText = ktbSlipText(99, paidAt);
 });
 t('login before payment confirmed → pending, no seat', () => {
   const r = G.route_({ action: 'login', id: ID1, phone: '081-234-5678' });
@@ -88,11 +115,13 @@ t('wrong phone fails, then rate-limited', () => {
 t('reconcile with statement → CONFIRMED', () => {
   const st = sheet('รายการเงินเข้า');
   const d = new Date(paidAt.getFullYear(), paidAt.getMonth(), paidAt.getDate());
-  st.data.push([d, String(paidAt.getHours()).padStart(2, '0') + ':' + String(paidAt.getMinutes() + 1).padStart(2, '0'), 198, 'โอนเข้า', '', '']);
+  st.data.push(credit(paidAt, 99));
+  st.data.push(credit(paidAt2, 99));
   st.data.push([d, '23:59', 99, 'อื่น', '', '']);
   const out = G.reconcile_(null);
-  assert.equal(out.matched.length, 1, JSON.stringify(out));
-  const p = rowsOf('การชำระเงิน')[0]; assert.equal(p['สถานะ'], G.STATUS.CONFIRMED); assert.equal(st.data[1][4], p['เลขที่รายการ']);
+  assert.equal(out.matched.length, 2, JSON.stringify(out));
+  const ps = rowsOf('การชำระเงิน'); assert.equal(ps[0]['สถานะ'], G.STATUS.CONFIRMED); assert.equal(ps[1]['สถานะ'], G.STATUS.CONFIRMED); assert.equal(ps[2]['สถานะ'], G.STATUS.NEED_CHECK);
+  assert.equal(st.data[1][4], 'T700001'); assert.equal(st.data[2][4], 'T700002');
 });
 t('reconcile does not reuse a matched credit', () => { const out = G.reconcile_(null); assert.equal(out.matched.length, 0); });
 t('assign seats needs capacity', () => { const rep = G.assignSeats_(); assert(/ยังไม่ได้ใส่ความจุ/.test(rep.join('\n'))); });
@@ -104,7 +133,7 @@ t('assign seats', () => {
 t('re-run keeps existing seats, adds newcomers', () => {
   const ap = sheet('ผู้สมัคร'), ah = ap.data[0], pay = sheet('การชำระเงิน'), ph = pay.data[0];
   ap.data[1][ah.indexOf('เลขที่นั่งสอบ')] = 'P0105'; // สมมุติว่าคนแรกได้ P0105 ไว้แล้ว
-  const row = pay.data.findIndex(r => r[0] === 'T700002'); const prev = pay.data[row][ph.indexOf('สถานะ')];
+  const row = pay.data.findIndex(r => r[0] === 'T700003'); const prev = pay.data[row][ph.indexOf('สถานะ')];
   pay.data[row][ph.indexOf('สถานะ')] = G.STATUS.CONFIRMED;
   let rep = G.assignSeats_(false); assert(/ใหม่ 1 · คงเลขเดิม 1/.test(rep[0]), rep.join('|'));
   let a = rowsOf('ผู้สมัคร'); assert.equal(a[0]['เลขที่นั่งสอบ'], 'P0105'); assert.equal(a[2]['เลขที่นั่งสอบ'], 'P0101'); assert.equal(a[1]['เลขที่นั่งสอบ'], 'M0101');
@@ -143,7 +172,7 @@ t('login result includes field statistics', () => {
 });
 t('rejected applicant can re-register & sees message', () => {
   const pay = sheet('การชำระเงิน'); const hd = pay.data[0];
-  const row = pay.data.findIndex(r => r[0] === 'T700002');
+  const row = pay.data.findIndex(r => r[0] === 'T700003');
   pay.data[row][hd.indexOf('สถานะ')] = G.STATUS.REJECTED; pay.data[row][hd.indexOf('ข้อความแจ้งผู้สมัคร')] = 'สลิปซ้ำ กรุณาติดต่อ';
   const r = G.route_({ action: 'login', id: ID2, phone: '0899999999' }); assert.equal(r.payment.state, 'rejected'); assert.equal(r.payment.message, 'สลิปซ้ำ กรุณาติดต่อ');
 });
