@@ -280,13 +280,18 @@
   .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);margin:10px 2px 0}
   .legend i{display:inline-block;width:18px;height:8px;border-radius:999px;background:var(--purple-2);vertical-align:middle;margin-right:6px}
   .legend i.m{width:3px;height:14px;background:var(--gold);border-radius:2px}
-  .gloss{margin-top:18px;border-radius:16px;background:var(--surface-2);padding:16px 18px}
-  .gloss-h{font-weight:700;color:var(--accent);margin-bottom:10px}
-  .gloss dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px;margin:0}
-  .gloss dt{font-weight:700;color:var(--ink)}
-  .gloss dt span{font:900 italic 15px/1 var(--f-mark);color:var(--purple-2);margin-right:6px}
-  .gloss dd{margin:2px 0 0;font-size:14px;color:var(--muted);line-height:1.55}
-  .gloss p{margin:12px 0 0;font-size:13px;color:var(--muted)}
+  .gloss{margin-top:18px;border-radius:16px;background:var(--surface-2);padding:18px 20px}
+  .gloss-h{font-weight:700;color:var(--accent);margin-bottom:14px}
+  .gloss dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 32px;margin:0}
+  .gloss dl > div{position:relative;padding-left:58px;min-height:30px}
+  .gloss .gk{position:absolute;left:0;top:0;width:46px;height:30px;border-radius:8px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);
+    color:var(--accent);display:flex;align-items:center;justify-content:center;font:800 italic 15px/1 var(--f-mark);white-space:nowrap}
+  .gloss .xbar{position:relative;display:inline-block;padding:0 .04em}
+  .gloss .xbar::before{content:"";position:absolute;left:.24em;right:-.06em;top:-.2em;height:2px;border-radius:1px;background:currentColor}
+  .gloss dt{font-weight:700;color:var(--ink);line-height:30px}
+  .gloss dd{margin:2px 0 0;font-size:14px;color:var(--muted);line-height:1.6}
+  .gloss-note{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.6}
+  .gloss-note b{color:var(--ink);font-weight:600;margin-right:8px}
   @media (max-width:900px){ .res-grid{grid-template-columns:1fr 1fr} .gloss dl{grid-template-columns:1fr} }
   @media (max-width:560px){ .srow{grid-template-columns:1fr auto} .strack{grid-column:1 / -1;order:3} .sstat{grid-column:1 / -1;order:4;justify-content:flex-start} .rc b{font-size:34px} }
   .ec-tb{margin-top:14px;font-size:16px}
@@ -732,14 +737,16 @@
         '<div class="sstat">' + (st ? '<span>เฉลี่ย <b>' + f1(st.mean) + '</b></span>' + (st.t != null ? '<span>T <b>' + f1(st.t) + '</b></span>' : '') + '<span>PR <b>' + f1(st.pr) + '</b></span>' : '') + '</div></div>';
     }).join('') + '</div>' +
       (hasStats ? '<div class="legend"><span><i></i>คะแนนของคุณ</span><span><i class="m"></i>ค่าเฉลี่ยของสนามสอบ</span></div>' : '');
+    var gi = function (k, t, d) { return '<div><dt><span class="gk">' + k + '</span>' + t + '</dt><dd>' + d + '</dd></div>'; };
+    var nw = function (x) { return '<span class="nw">' + x + '</span>'; };
     if (hasStats) h += '<div class="gloss"><div class="gloss-h">อ่านค่าเหล่านี้อย่างไร</div><dl>' +
-      '<div><dt><span>T</span>คะแนนมาตรฐาน T-score</dt><dd>ปรับคะแนนทุกวิชาให้เทียบกันได้ โดยค่าเฉลี่ยของสนามสอบเท่ากับ 50 เกิน 50 คือสูงกว่าค่าเฉลี่ย ทุก 10 คะแนนเท่ากับห่างค่าเฉลี่ย 1 SD ใช้ดูว่าถนัดวิชาไหนที่สุด</dd></div>' +
-      '<div><dt><span>PR</span>เปอร์เซ็นไทล์</dt><dd>บอกว่าทำคะแนนได้ดีกว่าผู้เข้าสอบกี่เปอร์เซ็นต์ เช่น PR 85 หมายถึงดีกว่าผู้เข้าสอบประมาณ 85 จาก 100 คน</dd></div>' +
-      '<div><dt><span>X̄</span>ค่าเฉลี่ย</dt><dd>คะแนนเฉลี่ยของผู้เข้าสอบทุกคนในสนามเดียวกัน ใช้ดูว่าเราอยู่เหนือหรือต่ำกว่าระดับทั่วไป</dd></div>' +
-      '<div><dt><span>SD</span>ส่วนเบี่ยงเบนมาตรฐาน</dt><dd>บอกว่าคะแนนของผู้เข้าสอบห่างกันมากแค่ไหน SD มากคือคะแนนกระจายกว้าง SD น้อยคือคะแนนใกล้เคียงกัน</dd></div>' +
-      '<div><dt><span>#</span>อันดับ</dt><dd>ลำดับคะแนนรวมในสนามสอบ คะแนนเท่ากันได้อันดับเดียวกัน</dd></div>' +
-      '<div><dt><span>+</span>จุดเด่น / ควรเสริม</dt><dd>วิชาที่มี T-score สูงสุดและต่ำสุดของคุณ ใช้วางแผนทบทวนก่อนสอบจริง</dd></div>' +
-      '</dl><p>ทุกค่าคำนวณจากผู้เข้าสอบในสนามเดียวกันเท่านั้น สนาม ม.1 และสนาม ม.4 แยกกัน</p></div>';
+      gi('T', 'คะแนนมาตรฐาน (T-score)', 'ปรับคะแนนทุกวิชาให้เทียบกันได้ โดยให้ค่าเฉลี่ยของสนามสอบ' + nw('เท่ากับ 50') + ' เกิน 50 คือ' + nw('สูงกว่าค่าเฉลี่ย') + ' ' + nw('ทุก 10 คะแนน') + 'เท่ากับห่างจากค่าเฉลี่ย ' + nw('1 SD') + ' ' + nw('ใช้ดูว่าถนัดวิชาไหนที่สุด')) +
+      gi('PR', 'เปอร์เซ็นไทล์', 'บอกว่าทำคะแนนได้ดีกว่าผู้เข้าสอบ' + nw('กี่เปอร์เซ็นต์') + ' เช่น ' + nw('PR 85') + ' หมายถึง' + nw('ดีกว่าผู้เข้าสอบ') + nw('ประมาณ 85 จาก 100 คน')) +
+      gi('<span class="xbar">X</span>', 'ค่าเฉลี่ย', 'คะแนนเฉลี่ยของผู้เข้าสอบทุกคนในสนามเดียวกัน ใช้ดูว่าคะแนนของเรา' + nw('อยู่เหนือหรือต่ำกว่า') + 'ระดับทั่วไป') +
+      gi('SD', 'ส่วนเบี่ยงเบนมาตรฐาน', 'บอกว่าคะแนนของผู้เข้าสอบ' + nw('กระจายห่างกันแค่ไหน') + ' ' + nw('SD มาก') + ' ' + nw('คือคะแนนต่างกันมาก') + ' ' + nw('SD น้อย') + ' ' + nw('คือคะแนนใกล้เคียงกัน')) +
+      gi('#', 'อันดับ', 'ลำดับคะแนนรวมในสนามสอบ ' + nw('ผู้ที่ได้คะแนนเท่ากัน') + nw('ได้อันดับเดียวกัน')) +
+      gi('+ &minus;', 'จุดเด่น / ควรเสริม', 'วิชาที่ T-score ของคุณ' + nw('สูงที่สุด') + 'และ' + nw('ต่ำที่สุด') + ' ใช้วางแผนทบทวน' + nw('ก่อนสอบจริง')) +
+      '</dl><p class="gloss-note"><b>หมายเหตุ</b>ทุกค่าคำนวณจากผู้เข้าสอบในสนามเดียวกันเท่านั้น สนาม ม.1 และสนาม ม.4 คิดแยกกัน</p></div>';
     h += '<p><button type="button" class="btn btn-main" id="printResult">ดูและพิมพ์ใบแจ้งผลการสอบ</button></p>';
     return h;
   }
